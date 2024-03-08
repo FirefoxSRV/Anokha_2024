@@ -6,13 +6,14 @@ import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Utils/MyDelightToastBar.dart';
+import '../../utils/MyDelightToastBar.dart';
 import '../../constants.dart';
 import '../../utils/loading_component.dart';
 import '../Auth/login_page.dart';
 import '../Auth/primary_page.dart';
 import '../Payments/Payment_Utils/group_event_form.dart';
 import '../payments/payment_screen.dart';
+
 class EventDetailPage extends StatefulWidget {
   final int eventId;
   const EventDetailPage({Key? key, required this.eventId}) : super(key: key);
@@ -103,7 +104,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
   }
 
   Future<String> _toggleStarredEvent() async {
-
     setState(() {
       isLoading = true;
     });
@@ -114,11 +114,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
     }
 
     try {
-
       final dio = await Dio();
 
-      final response = await dio.post(
-          Constants.toggleStarredEvents,
+      final response = await dio.post(Constants.toggleStarredEvents,
           options: Options(
             contentType: Headers.jsonContentType,
             headers: {
@@ -129,12 +127,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
           data: {
             "eventId": eventDetails["eventId"],
             "isStarred": eventDetails["isStarred"] == "1" ? "0" : "1",
-          }
-      );
+          });
 
       if (response.statusCode == 200) {
         setState(() {
-          eventDetails["isStarred"] = eventDetails["isStarred"] == "1" ? "0" : "1";
+          eventDetails["isStarred"] =
+              eventDetails["isStarred"] == "1" ? "0" : "1";
         });
       } else if (response.statusCode == 401) {
         _logOut();
@@ -143,8 +141,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
       } else {
         showToast("Something went wrong.Try again later.");
       }
-
-
     } catch (e) {
       debugPrint(e.toString());
     } finally {
@@ -159,7 +155,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Map<String, dynamic> registrationData = {};
 
   Future<String> _viewRegistration() async {
-
     setState(() {
       isLoading = true;
     });
@@ -171,11 +166,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
     }
 
     try {
-
       final dio = Dio();
 
-      final response = await dio.post(
-          Constants.getRegisteredEventData,
+      final response = await dio.post(Constants.getRegisteredEventData,
           options: Options(
             contentType: Headers.jsonContentType,
             headers: {
@@ -185,11 +178,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ),
           data: {
             "registrationId": eventDetails["registrationId"],
-          }
-      );
+          });
 
       if (response.statusCode == 200) {
-
         setState(() {
           registrationData = response.data;
         });
@@ -197,7 +188,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
         debugPrint(registrationData.toString());
 
         return "1";
-
       } else if (response.statusCode == 401) {
         _logOut();
       } else if (response.statusCode == 400) {
@@ -205,8 +195,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
       } else {
         showToast("Something went wrong.Try again later.");
       }
-
-
     } catch (e) {
       debugPrint(e.toString());
     } finally {
@@ -246,8 +234,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 icon: Icon(
                   eventDetails['isStarred'] != null
                       ? eventDetails['isStarred'] == "1"
-                      ? Icons.favorite
-                      : Icons.favorite_border
+                          ? Icons.favorite
+                          : Icons.favorite_border
                       : Icons.favorite_border,
                   color: Colors.white,
                 ))
@@ -255,7 +243,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
         ),
         backgroundColor: Colors.transparent,
         floatingActionButtonLocation:
-        FloatingActionButtonLocation.miniCenterFloat,
+            FloatingActionButtonLocation.miniCenterFloat,
         bottomSheet: BottomSheet(
           onClosing: () {},
           builder: (context) {
@@ -266,284 +254,418 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if(isLoading == false)...[
-                      eventDetails['isRegistered'] == "1"?
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: FloatingActionButton.extended(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)
-                          ),
-                          backgroundColor:Color.fromRGBO(11, 38, 59, 1),
-                          extendedPadding: EdgeInsetsDirectional.all(16),
-                          onPressed: () {
-                            _viewRegistration().then((res) {
-
-                              if (res == "1") {
-                                showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(16.0),
-                                        topRight: Radius.circular(16.0),
-                                      ),
-                                    ),
-                                    constraints: BoxConstraints(
-                                      minWidth: MediaQuery.of(context).size.width,
-                                    ),
-                                    enableDrag: true,
-                                    useSafeArea: true,
-                                    isDismissible: true,
-                                    showDragHandle: true,
-                                    isScrollControlled: true,
-                                    builder: (context) {
-                                      return SingleChildScrollView(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Registration Details",
-                                              style: GoogleFonts.quicksand(
-                                                textStyle: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 24,
-                                                ),
-                                              ),
+                    if (isLoading == false) ...[
+                      eventDetails['isRegistered'] == "1"
+                          ? SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: FloatingActionButton.extended(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                backgroundColor: Color.fromRGBO(11, 38, 59, 1),
+                                extendedPadding: EdgeInsetsDirectional.all(16),
+                                onPressed: () {
+                                  _viewRegistration().then((res) {
+                                    if (res == "1") {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(16.0),
+                                              topRight: Radius.circular(16.0),
                                             ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            const Divider(
-                                              thickness: 1,
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                              child: ListTile(
-                                                style: ListTileStyle.list,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(16.0),
-                                                ),
-                                                dense: true,
-                                                title: Text(
-                                                  "₹ ${registrationData["transactionAmount"].toString()}",
-                                                  style: GoogleFonts.poppins(
-                                                    textStyle: Theme.of(context).textTheme.titleMedium,
-                                                    color: Colors.black,
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minWidth: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                          ),
+                                          enableDrag: true,
+                                          useSafeArea: true,
+                                          isDismissible: true,
+                                          showDragHandle: true,
+                                          isScrollControlled: true,
+                                          builder: (context) {
+                                            return SingleChildScrollView(
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Registration Details",
+                                                    style:
+                                                        GoogleFonts.quicksand(
+                                                      textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 24,
+                                                      ),
+                                                    ),
                                                   ),
-                                                  textAlign: TextAlign.start,
-                                                ),
-                                                subtitle: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 4.0),
+                                                    child: ListTile(
+                                                      style: ListTileStyle.list,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
+                                                      ),
+                                                      dense: true,
+                                                      title: Text(
+                                                        "₹ ${registrationData["transactionAmount"].toString()}",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .titleMedium,
+                                                          color: Colors.black,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                      ),
+                                                      subtitle: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            DateFormat(
+                                                                    'EEE, MMM d, '
+                                                                    'yy')
+                                                                .format(DateTime.parse(
+                                                                    registrationData[
+                                                                        "transactionTime"])),
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodySmall,
+                                                              color: Colors
+                                                                  .black87,
+                                                            ),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          ),
+                                                          Text(
+                                                            DateFormat('h:MM a')
+                                                                .format(DateTime.parse(
+                                                                    registrationData[
+                                                                        "transactionTime"])),
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodySmall,
+                                                              color: Colors
+                                                                  .black87,
+                                                            ),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                          )
+                                                        ],
+                                                      ),
+                                                      trailing: Chip(
+                                                        avatar: registrationData[
+                                                                    'transactionStatus'] ==
+                                                                '1'
+                                                            ? const Icon(
+                                                                Icons
+                                                                    .check_circle,
+                                                                color: Colors
+                                                                    .green,
+                                                              )
+                                                            : const Icon(
+                                                                Icons
+                                                                    .not_interested_rounded,
+                                                                color:
+                                                                    Colors.red),
+                                                        elevation: 1,
+                                                        color: MaterialStateProperty
+                                                            .all(registrationData[
+                                                                        'transactionStatus'] ==
+                                                                    '1'
+                                                                ? Colors
+                                                                    .lightGreenAccent
+                                                                    .withOpacity(
+                                                                        0.2)
+                                                                : Colors
+                                                                    .redAccent
+                                                                    .withOpacity(
+                                                                        0.2)),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                        ),
+                                                        side: BorderSide(
+                                                          color: registrationData[
+                                                                      'transactionStatus'] ==
+                                                                  '1'
+                                                              ? Colors.green
+                                                              : Colors.red,
+                                                        ),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(4.0),
+                                                        label: Text(
+                                                          registrationData[
+                                                                      'transactionStatus'] ==
+                                                                  '1'
+                                                              ? "Success"
+                                                              : "Failure",
+                                                          style: GoogleFonts
+                                                              .nunito(
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyMedium,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: registrationData[
+                                                                        'transactionStatus'] ==
+                                                                    '1'
+                                                                ? Colors.green
+                                                                : Colors.red,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                        ),
+                                                        backgroundColor:
+                                                            Theme.of(context)
+                                                                .colorScheme
+                                                                .primary,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  const Divider(
+                                                    thickness: 1,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  if (eventDetails["isGroup"] ==
+                                                      "1") ...[
                                                     Text(
-                                                      DateFormat('EEE, MMM d, ' 'yy').format(DateTime.parse(
-                                                          registrationData["transactionTime"])),
-                                                      style: GoogleFonts.poppins(
-                                                        textStyle: Theme.of(context).textTheme.bodySmall,
-                                                        color: Colors.black87,
-                                                      ),
-                                                      textAlign: TextAlign.start,
-                                                    ),
-                                                    Text(
-                                                      DateFormat('h:MM a').format(DateTime.parse(
-                                                          registrationData["transactionTime"])),
-                                                      style: GoogleFonts.poppins(
-                                                        textStyle: Theme.of(context).textTheme.bodySmall,
-                                                        color: Colors.black87,
-                                                      ),
-                                                      textAlign: TextAlign.start,
-                                                    )
-                                                  ],
-                                                ),
-                                                trailing: Chip(
-                                                  avatar: registrationData['transactionStatus'] == '1'
-                                                      ? const Icon(
-                                                    Icons.check_circle,
-                                                    color: Colors.green,
-                                                  )
-                                                      : const Icon(Icons.not_interested_rounded,
-                                                      color: Colors.red),
-                                                  elevation: 1,
-                                                  color: MaterialStateProperty.all(
-                                                      registrationData['transactionStatus'] == '1'
-                                                          ? Colors.lightGreenAccent.withOpacity(0.2)
-                                                          : Colors.redAccent.withOpacity(0.2)),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(12.0),
-                                                  ),
-                                                  side: BorderSide(
-                                                    color: registrationData['transactionStatus'] == '1'
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                  ),
-                                                  padding: const EdgeInsets.all(4.0),
-                                                  label: Text(
-                                                    registrationData['transactionStatus'] == '1'
-                                                        ? "Success"
-                                                        : "Failure",
-                                                    style: GoogleFonts.nunito(
-                                                      textStyle: Theme.of(context).textTheme.bodyMedium,
-                                                      fontWeight: FontWeight.w600,
-                                                      color:
-                                                      registrationData['transactionStatus'] == '1'
-                                                          ? Colors.green
-                                                          : Colors.red,
-                                                    ),
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            const Divider(
-                                              thickness: 1,
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            if (eventDetails["isGroup"] == "1") ...[
-                                              Text(
-                                                registrationData["teamName"].toString(),
-                                                style: GoogleFonts.sourceCodePro(
-                                                  textStyle: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              const Divider(
-                                                thickness: 1,
-                                              ),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              for (int i = 0; i < registrationData["team"].length; i++) ...[
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.all(16),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Colors.grey,
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(24),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      Text(
-                                                        registrationData["team"][i]["studentFullName"],
-                                                        style: GoogleFonts.sourceCodePro(
-                                                          textStyle: TextStyle(
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 16,
-                                                          ),
+                                                      registrationData[
+                                                              "teamName"]
+                                                          .toString(),
+                                                      style: GoogleFonts
+                                                          .sourceCodePro(
+                                                        textStyle: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16,
                                                         ),
                                                       ),
-                                                      Text(
-                                                        registrationData["team"][i]["roleDescription"],
-                                                        style: GoogleFonts.sourceCodePro(
-                                                          textStyle: TextStyle(
-                                                            fontSize: 12,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    const Divider(
+                                                      thickness: 1,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    for (int i = 0;
+                                                        i <
+                                                            registrationData[
+                                                                    "team"]
+                                                                .length;
+                                                        i++) ...[
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(16),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            color: Colors.grey,
                                                           ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(24),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              registrationData[
+                                                                      "team"][i]
+                                                                  [
+                                                                  "studentFullName"],
+                                                              style: GoogleFonts
+                                                                  .sourceCodePro(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              registrationData[
+                                                                      "team"][i]
+                                                                  [
+                                                                  "roleDescription"],
+                                                              style: GoogleFonts
+                                                                  .sourceCodePro(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              registrationData[
+                                                                      "team"][i]
+                                                                  [
+                                                                  "studentEmail"],
+                                                              style: GoogleFonts
+                                                                  .sourceCodePro(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                      Text(
-                                                        registrationData["team"][i]["studentEmail"],
-                                                        style: GoogleFonts.sourceCodePro(
-                                                          textStyle: TextStyle(
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
+                                                      const SizedBox(
+                                                        height: 4,
                                                       ),
                                                     ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 4,
-                                                ),
-                                              ],
-                                            ],
-
-                                          ],
-                                        ),
-                                      );
-                                    });
-                              }
-
-                            });
-                          },
-                          label: Text(
-                            "Show Registration",
-                            style: GoogleFonts.quicksand(color: Colors.white),
-                          ),
-                          icon: Icon(Icons.event_available, color: Colors.white),
-                        ),
-                      ):SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: FloatingActionButton.extended(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)
-                          ),
-                          backgroundColor:Color.fromRGBO(11, 38, 59, 1),
-                          extendedPadding: EdgeInsetsDirectional.all(16),
-                          onPressed: () {
-                            if (eventDetails["isGroup"] == "0") {
-                              // showToast("Individual event");
-                              _register(eventDetails["eventId"].toString(), eventDetails["minTeamSize"]);
-                            }
-                            if (eventDetails["isGroup"] == "1" &&
-                                eventDetails["needGroupData"] == "0" &&
-                                eventDetails["minTeamSize"] == eventDetails["maxTeamSize"]) {
-                              _register(eventDetails["eventId"].toString(), eventDetails["minTeamSize"]);
-                            }
-                            if (eventDetails["isGroup"] == "1" &&
-                                eventDetails["needGroupData"] == "0" &&
-                                eventDetails["minTeamSize"] != eventDetails["maxTeamSize"]) {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterToGroupEventPage(
-                                eventData: {
-                                  "minTeamSize": eventDetails["minTeamSize"],
-                                  "maxTeamSize": eventDetails["maxTeamSize"],
-                                  "eventName": eventDetails["eventName"],
-                                  "eventId": eventDetails["eventId"],
-                                  // "needGroupData":event["needGroupData"],
-                                  "needGroupData": "0",
+                                                  ],
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    }
+                                  });
                                 },
-                              )));
-
-                            }
-                            if (eventDetails["isGroup"] == "1" && eventDetails["needGroupData"] == "1") {Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterToGroupEventPage(
-                              eventData: {
-                                "minTeamSize": eventDetails["minTeamSize"],
-                                "maxTeamSize": eventDetails["maxTeamSize"],
-                                "eventName": eventDetails["eventName"],
-                                "eventId": eventDetails["eventId"],
-                                "needGroupData": eventDetails["needGroupData"],
-                              },
-                            )));
-
-
-                            }
-                          },
-                          label: Text(
-                            "Register",
-                            style: GoogleFonts.quicksand(color: Colors.white),
-                          ),
-                          icon: Icon(Icons.event_available, color: Colors.white),
-                        ),
-                      ),
+                                label: Text(
+                                  "Show Registration",
+                                  style: GoogleFonts.quicksand(
+                                      color: Colors.white),
+                                ),
+                                icon: Icon(Icons.event_available,
+                                    color: Colors.white),
+                              ),
+                            )
+                          : SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: FloatingActionButton.extended(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16)),
+                                backgroundColor: Color.fromRGBO(11, 38, 59, 1),
+                                extendedPadding: EdgeInsetsDirectional.all(16),
+                                onPressed: () {
+                                  if (eventDetails["isGroup"] == "0") {
+                                    // showToast("Individual event");
+                                    _register(
+                                        eventDetails["eventId"].toString(),
+                                        eventDetails["minTeamSize"]);
+                                  }
+                                  if (eventDetails["isGroup"] == "1" &&
+                                      eventDetails["needGroupData"] == "0" &&
+                                      eventDetails["minTeamSize"] ==
+                                          eventDetails["maxTeamSize"]) {
+                                    _register(
+                                        eventDetails["eventId"].toString(),
+                                        eventDetails["minTeamSize"]);
+                                  }
+                                  if (eventDetails["isGroup"] == "1" &&
+                                      eventDetails["needGroupData"] == "0" &&
+                                      eventDetails["minTeamSize"] !=
+                                          eventDetails["maxTeamSize"]) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterToGroupEventPage(
+                                                  eventData: {
+                                                    "minTeamSize": eventDetails[
+                                                        "minTeamSize"],
+                                                    "maxTeamSize": eventDetails[
+                                                        "maxTeamSize"],
+                                                    "eventName": eventDetails[
+                                                        "eventName"],
+                                                    "eventId":
+                                                        eventDetails["eventId"],
+                                                    // "needGroupData":event["needGroupData"],
+                                                    "needGroupData": "0",
+                                                  },
+                                                )));
+                                  }
+                                  if (eventDetails["isGroup"] == "1" &&
+                                      eventDetails["needGroupData"] == "1") {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RegisterToGroupEventPage(
+                                                  eventData: {
+                                                    "minTeamSize": eventDetails[
+                                                        "minTeamSize"],
+                                                    "maxTeamSize": eventDetails[
+                                                        "maxTeamSize"],
+                                                    "eventName": eventDetails[
+                                                        "eventName"],
+                                                    "eventId":
+                                                        eventDetails["eventId"],
+                                                    "needGroupData":
+                                                        eventDetails[
+                                                            "needGroupData"],
+                                                  },
+                                                )));
+                                  }
+                                },
+                                label: Text(
+                                  "Register",
+                                  style: GoogleFonts.quicksand(
+                                      color: Colors.white),
+                                ),
+                                icon: Icon(Icons.event_available,
+                                    color: Colors.white),
+                              ),
+                            ),
                     ]
                   ],
                 ));
@@ -561,8 +683,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 ],
               ),
             ),
-            child: isLoading == true ? const LoadingComponent() : buildEventDetailPage(eventDetails,)
-        ));
+            child: isLoading == true
+                ? const LoadingComponent()
+                : buildEventDetailPage(
+                    eventDetails,
+                  )));
   }
 
   Widget buildEventDetailPage(dynamic event) {
@@ -577,7 +702,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.7,
               errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.broken_image, size: 250),
+                  const Icon(Icons.broken_image, size: 250),
             ),
           ),
           Container(
@@ -596,26 +721,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: Center(
                       child: Text(
                         event['eventName'],
-                        style:  GoogleFonts.quicksand(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height*0.02,),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        "₹ ${event["eventPrice"].toString()}",
                         style: GoogleFonts.quicksand(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -624,7 +729,29 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(32)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        "₹ ${event["eventPrice"].toString()}",
+                        style: GoogleFonts.quicksand(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -639,7 +766,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       ),
                       Padding(
                           padding:
-                          EdgeInsets.only(left: 20, right: 20, top: 10),
+                              EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: buildDetailTile(
                               Icons.calendar_today,
                               "${formatEventDate(event['eventDate'].substring(0, 10))} 2024",
@@ -673,29 +800,38 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       SizedBox(
                         height: 2,
                       ),
+                      Divider(color: Colors.grey, indent: 15, endIndent: 15),
+                      Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: buildDetailTile(
+                              Icons.design_services_rounded, "${event['isGroup'] == "1" ? "Group" : "Individual"} ${event['isWorkshop'] == "1" ? "workshop" : "event"}", "Type")),
+                      SizedBox(
+                        height: 2,
+                      ),
                       event['isGroup'] == "1"
                           ? Column(
-                        children: [
-                          Divider(
-                            color: Colors.grey,
-                            indent: 15,
-                            endIndent: 15,
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 10),
-                              child: buildDetailTile(
-                                  Icons.person,
-                                  "${event['minTeamSize']} - ${event['maxTeamSize']} members",
-                                  "Team size"))
-                        ],
-                      )
+                              children: [
+                                Divider(
+                                  color: Colors.grey,
+                                  indent: 15,
+                                  endIndent: 15,
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 10),
+                                  child: buildDetailTile(
+                                      Icons.person,
+                                      "${event['minTeamSize']} - ${event['maxTeamSize']} members",
+                                      "Team size"),
+                                ),
+                              ],
+                            )
                           : SizedBox(
-                        height: 10,
-                      ),
+                              height: 10,
+                            ),
                       SizedBox(
                         height: 4,
                       ),
@@ -751,7 +887,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
             Text(
               title,
               style:
-              GoogleFonts.quicksand(color: Color.fromRGBO(11, 38, 59, 1)),
+                  GoogleFonts.quicksand(color: Color.fromRGBO(11, 38, 59, 1)),
             )
           ],
         ),
@@ -790,8 +926,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
       }).toList(),
     );
   }
-
-
 
 //
 // Widget buildRegisterButton() {
@@ -843,9 +977,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
         if (response.statusCode == 200) {
           var transMap = response.data;
           debugPrint("Trans map sent to payment screen${transMap.toString()}");
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(
-            transData: transMap,
-          )));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PaymentScreen(
+                        transData: transMap,
+                      )));
         } else if (response.statusCode == 400 &&
             response.data["MESSAGE"] != null) {
           showToast(response.data["MESSAGE"]);
@@ -857,7 +994,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
           // Some unknown error. Handle It
           showToast("Something went wrong please wait");
           Navigator.pushAndRemoveUntil(
-              context, MaterialPageRoute(builder: (context) =>  LoginReg()),(route)=>false);
+              context,
+              MaterialPageRoute(builder: (context) => LoginReg()),
+              (route) => false);
         }
       });
     } catch (err) {
@@ -882,8 +1021,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
-
+        context,
+        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+        (route) => false);
   }
-
 }

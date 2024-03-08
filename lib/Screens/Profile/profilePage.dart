@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Utils/MyDelightToastBar.dart';
+import '../../utils/MyDelightToastBar.dart';
 import '../../constants.dart';
 import '../../utils/AlertDialog.dart';
 import '../Auth/primary_page.dart';
@@ -1230,7 +1230,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              30.0),
+                                                              32.0),
                                                       child: Row(
                                                         crossAxisAlignment:CrossAxisAlignment.center,
                                                         children: [
@@ -1259,23 +1259,22 @@ class _UserProfileState extends State<UserProfile> {
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(width:15), // Add some spacing between the icon and text
-                                                          Text(
-                                                            "$qrText",
-                                                            textAlign: TextAlign.center,
-                                                            style: GoogleFonts
-                                                                .nunito(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Colors
-                                                                  .black,
+                                                          const SizedBox(width:15), // Add some spacing between the icon and text
+                                                          SizedBox(
+                                                            width: MediaQuery.of(context).size.width * 0.4,
+                                                            child: Text(
+                                                              qrText,
+                                                              textAlign: TextAlign.center,
+                                                              style: GoogleFonts
+                                                                  .nunito(
+                                                                fontSize: 13,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
                                                             ),
-                                                            softWrap: true,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
                                                           ),
                                                         ],
                                                       ),

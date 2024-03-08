@@ -6,7 +6,7 @@ import 'package:intl/intl.dart'; // Add this import to format dates
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Utils/MyDelightToastBar.dart';
+import '../utils/MyDelightToastBar.dart';
 import '../constants.dart';
 import '../utils/AlertDialog.dart';
 import '../utils/loading_component.dart';
@@ -335,7 +335,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
           const SizedBox(height: 10), // Add space between title and events
           if (events.isNotEmpty) ...[
             SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
+              height: MediaQuery.of(context).size.height,
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: events.length,

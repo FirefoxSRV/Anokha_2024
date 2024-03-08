@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:anokha/Screens/Auth/primary_page.dart';
-import 'package:anokha/Utils/MyDelightToastBar.dart';
+import 'package:anokha/utils/MyDelightToastBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart';

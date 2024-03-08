@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../Utils/MyDelightToastBar.dart';
+import '../../../utils/MyDelightToastBar.dart';
 import '../../../constants.dart';
 import '../../Auth/primary_page.dart';
 import '../payment_screen.dart';
-
-
-
 
 class RegisterToGroupEventPage extends StatefulWidget {
   const RegisterToGroupEventPage({super.key, required this.eventData});
@@ -20,20 +16,22 @@ class RegisterToGroupEventPage extends StatefulWidget {
   final Map<String, dynamic> eventData;
 
   @override
-  State<RegisterToGroupEventPage> createState() => _RegisterToGroupEventPageState();
+  State<RegisterToGroupEventPage> createState() =>
+      _RegisterToGroupEventPageState();
 }
 
 class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
   final _formKey = GlobalKey<FormState>();
   late int dropdownValue;
-  bool _isLoading=false;
+  bool _isLoading = false;
   TextEditingController teamname = TextEditingController();
   TextEditingController teamleader = TextEditingController();
   TextEditingController teamleaderrole = TextEditingController();
-  final List<TextEditingController> _controller1 = []; // to store email id of members
+  final List<TextEditingController> _controller1 =
+      []; // to store email id of members
   final List<TextEditingController> _controller2 = [];
-  List<String> mailList=[];
-  List<String> roleList=[];
+  List<String> mailList = [];
+  List<String> roleList = [];
   late Map<String, dynamic> trans_map;
   var teamSizeList = <int>[];
 
@@ -50,13 +48,11 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
     }
     dropdownValue = widget.eventData['minTeamSize'];
     if (widget.eventData['minTeamSize'] != widget.eventData['maxTeamSize']) {
-
       for (var i = widget.eventData["minTeamSize"];
-      i <= widget.eventData["maxTeamSize"];
-      i++) {
+          i <= widget.eventData["maxTeamSize"];
+          i++) {
         teamSizeList.add(i);
       }
-
     }
     // setState(() {
     //   teamleader.text = 'Rajyasri';
@@ -196,7 +192,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         return null;
                       },
                       style:
-                      TextStyle(color: const Color.fromARGB(255, 5, 5, 5)),
+                          TextStyle(color: const Color.fromARGB(255, 5, 5, 5)),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -297,7 +293,23 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                     ),
                   ],
 
-
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          child: Divider(
+                        thickness: 0.5,
+                        color: Colors.black54,
+                      )),
+                      Expanded(child: Text("     Team leader")),
+                      Expanded(
+                          child: Divider(
+                        thickness: 0.5,
+                        color: Colors.black54,
+                      )),
+                    ],
+                  ),
 
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
@@ -326,7 +338,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color:
-                                const Color.fromARGB(255, 255, 255, 255)),
+                                    const Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -365,7 +377,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         border: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color:
-                                const Color.fromARGB(255, 255, 255, 255)),
+                                    const Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -378,7 +390,25 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                     ),
                   ),
                   for (int i = 1; i < dropdownValue; i += 1) ...[
-                    if(widget.eventData["needGroupData"]=="1") ...[
+                    if (widget.eventData["needGroupData"] == "1") ...[
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Divider(
+                            thickness: 0.5,
+                            color: Colors.black54,
+                          )),
+                          Expanded(child: Text("   Team Member ${i + 1}")),
+                          Expanded(
+                              child: Divider(
+                            thickness: 0.5,
+                            color: Colors.black54,
+                          )),
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                         child: Align(
@@ -415,8 +445,8 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color:
-                                    const Color.fromARGB(255, 255, 255, 255)),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -464,8 +494,8 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color:
-                                    const Color.fromARGB(255, 255, 255, 255)),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -477,7 +507,10 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           ),
                         ),
                       ),
-                    ]
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
                   ],
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 26, 15, 0),
@@ -516,6 +549,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
   void _register() async {
     setState(() {
       for (int i = 1; i < dropdownValue; i += 1) {
@@ -561,9 +595,12 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
           // Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(
           //   transData: trans_map,
           // )));
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PaymentScreen(
-            transData: trans_map,
-          )));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PaymentScreen(
+                        transData: trans_map,
+                      )));
         } else if (response.statusCode == 400 &&
             response.data["MESSAGE"] != null) {
           showToast(response.data["MESSAGE"]);
@@ -575,7 +612,9 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
           // Some unknown error. Handle It
           showToast("Something went wrong please wait");
           Navigator.pushAndRemoveUntil(
-              context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
+              context,
+              MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+              (route) => false);
         }
       });
     } catch (err) {
@@ -587,6 +626,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
       });
     }
   }
+
   void _logOut() {
     //clearing the cache
     SharedPreferences.getInstance().then((sp) {
@@ -599,6 +639,8 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
+        context,
+        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+        (route) => false);
   }
 }

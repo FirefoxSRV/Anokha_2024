@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:crypto/crypto.dart';
 
-import '../../Utils/MyDelightToastBar.dart';
+import '../../utils/MyDelightToastBar.dart';
 import '../../constants.dart';
 import '../../utils/helper/helper_function.dart';
 

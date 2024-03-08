@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Utils/MyDelightToastBar.dart';
+import '../../utils/MyDelightToastBar.dart';
 import '../../constants.dart';
 import '../../home.dart';
 import '../../utils/helper/helper_function.dart';

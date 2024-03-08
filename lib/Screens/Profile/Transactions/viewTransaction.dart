@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../Utils/MyDelightToastBar.dart';
+import '../../../utils/MyDelightToastBar.dart';
 import '../../../constants.dart';
 import '../../../utils/loading_component.dart';
 import '../../Auth/primary_page.dart';
@@ -222,6 +222,7 @@ class _ViewTransactionsState extends State<ViewTransactions> {
       body: ConstrainedBox(
         constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height,
+          minWidth: MediaQuery.of(context).size.width,
         ),
         child: Container(
           decoration: const BoxDecoration(
