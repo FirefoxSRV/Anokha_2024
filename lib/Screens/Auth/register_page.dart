@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:anokha/Utils/MyDelightToastBar.dart';
+import 'package:anokha/utils/MyDelightToastBar.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
@@ -377,8 +377,6 @@ class _RegisterPageState extends State<RegisterPage>
     var bytes =
     utf8.encode(_passwordController.text.toString()); // data being hashed
     var digest = sha256.convert(bytes);
-    var sampleData = _passwordController.text;
-    sampleData = digest.toString();
     var hashedPass = digest.toString();
 
     try {

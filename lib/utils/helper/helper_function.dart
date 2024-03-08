@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions {
   //keys
@@ -8,60 +8,59 @@ class HelperFunctions {
   static String userTokenKey = "USERTOKENKEY";
   static String otpTokenKey = "OTPTOKENKEY";
 
-  // Instance of FlutterSecureStorage
-  static const storage = FlutterSecureStorage();
-
-  //clearing all the stored data
-  static Future<void> clearAllData() async {
-    await storage.deleteAll();
-  }
 
   // saving the data to SecureStorage
-
-  static Future<void> saveUserLoggedInStatus(bool isUserLoggedIn) async {
-    await storage.write(key: userLoggedInKey, value: isUserLoggedIn.toString());
+  static Future<bool> saveUserLoggedInStatus(bool isUserLoggedIn) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setBool(userLoggedInKey, isUserLoggedIn);
   }
 
-  static Future<void> saveUserNameSF(String userName) async {
-    await storage.write(key: userNameKey, value: userName);
+  static Future<bool> saveUserNameSF(String userName) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(userNameKey, userName);
   }
 
-  static Future<void> saveUserEmailSF(String userEmail) async {
-    await storage.write(key: userEmailKey, value: userEmail);
+
+  static Future<bool> saveUserEmailSF(String userEmail) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(userEmailKey, userEmail);
   }
 
-  static Future<void> saveUserTokenSF(String userToken) async {
-    await storage.write(key: userTokenKey, value: userToken);
+  static Future<bool> saveUserTokenSF(String userToken) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(userTokenKey, userToken);
   }
 
-  static Future<void> saveOTPTokenSF(String otpToken) async {
-    await storage.write(key: otpTokenKey, value: otpToken);
+  static Future<bool> saveOTPTokenSF(String otpToken) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return await sf.setString(otpTokenKey, otpToken);
   }
 
   // getting the data from SecureStorage
 
   static Future<bool?> getUserLoggedInStatus() async {
-    String? value = await storage.read(key: userLoggedInKey);
-    if (value == null) {
-      return null;
-    }
-    return value.toLowerCase() == 'true';
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getBool(userLoggedInKey);
   }
 
   static Future<String?> getUserEmailFromSF() async {
-    return await storage.read(key: userEmailKey);
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(userEmailKey);
   }
 
   static Future<String?> getUserNameFromFromSF() async {
-    return await storage.read(key: userNameKey);
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(userNameKey);
   }
 
   static Future<String?> getUserTokenKeyFromSF() async {
-    return await storage.read(key: userTokenKey);
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(userTokenKey);
   }
 
   static Future<String?> getOTPTokenKeyFromSF() async {
-    return await storage.read(key: otpTokenKey);
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(otpTokenKey);
   }
 }
 

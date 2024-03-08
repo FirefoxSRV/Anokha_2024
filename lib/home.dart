@@ -6,17 +6,14 @@ import 'Screens/Profile/profilePage.dart';
 import 'Screens/countdown.dart';
 import 'Utils/NavigationPane.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const HomePage(),
-      scrollBehavior:
-      MyCustomScrollBehavior(),
+      scrollBehavior: MyCustomScrollBehavior(),
     );
   }
 }
@@ -31,13 +28,13 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
@@ -45,43 +42,51 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(context: context, builder: (context){
-
-          return LayoutBuilder(
-              builder: (context,constraints) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return LayoutBuilder(builder: (context, constraints) {
                 double width = constraints.maxWidth;
                 double height = constraints.maxHeight;
-                return customAlertDialog(width: width, height: height, title: "Exit ?",content: "This action will exit this app.",actions: [
-                  MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),),
-                    color: Color.fromRGBO(11, 38, 59, 1),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Ok",
-                      style: GoogleFonts.quicksand(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  MaterialButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
+                return customAlertDialog(
+                  width: width,
+                  height: height,
+                  title: "Exit ?",
+                  content: "This action will exit this app.",
+                  actions: [
+                    MaterialButton(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        side: BorderSide(
-                            color:Colors.white)),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text("Cancel",style: GoogleFonts.quicksand(color:Color.fromRGBO(11, 38, 59, 1)),),
-                  )
-                ],);
-              }
-          );
-        });
+                      ),
+                      color: const Color.fromRGBO(11, 38, 59, 1),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Ok",
+                        style: GoogleFonts.quicksand(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    MaterialButton(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(color: Colors.white)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Cancel",
+                        style: GoogleFonts.quicksand(
+                            color: Color.fromRGBO(11, 38, 59, 1)),
+                      ),
+                    )
+                  ],
+                );
+              });
+            });
         return true;
       },
       child: Scaffold(
@@ -93,13 +98,14 @@ class _HomePageState extends State<HomePage> {
             });
           },
           physics:
-          const NeverScrollableScrollPhysics(), // Prevent manual page swipes
+              const NeverScrollableScrollPhysics(), // Prevent manual page swipes
           children: const [
             Countdown(),
-            EventsWorkshopsPage(isFeatured: false,),
+            EventsWorkshopsPage(
+              isFeatured: false,
+            ),
             EventsWorkshopsPage(isFeatured: true),
             UserProfile(),
-
           ],
         ),
         bottomNavigationBar: CustomBottomNavigationBar(
@@ -120,5 +126,3 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 }
-
-

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,28 +11,27 @@ import 'Payment_Utils/Verification/paymentPending.dart';
 import 'Payment_Utils/Verification/paymentSuccess.dart';
 import 'Payment_Utils/Verification/verifyingScreen.dart';
 
-
 class VerifyTransaction extends StatefulWidget {
-  String txid;
+  final String txid;
 
-   VerifyTransaction({super.key,required this.txid}){
-     txid=this.txid;
-   }
+  const VerifyTransaction({super.key, required this.txid});
 
   @override
   State<VerifyTransaction> createState() => _VerifyTransactionState();
 }
 
 class _VerifyTransactionState extends State<VerifyTransaction> {
-  bool _verifying=false;
+  @override
   void initState() {
     super.initState();
     _verifyTransaction(widget.txid);
-
   }
+
   @override
   Widget build(BuildContext context) {
-    return Verifying(txnId: widget.txid,);
+    return Verifying(
+      txnId: widget.txid,
+    );
   }
 
   void _logOut() {
@@ -48,10 +46,12 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
-
+        context,
+        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+        (route) => false);
   }
-  void _verifyTransaction(String transactionId) async{
+
+  void _verifyTransaction(String transactionId) async {
     String? secretToken = "";
 
     try {
@@ -68,9 +68,7 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
             },
             validateStatus: (status) => status! < 1000,
           ),
-          data: {
-            "transactionId": transactionId
-          },
+          data: {"transactionId": transactionId},
         );
         if (kDebugMode) {
           print("[Transaction Verification]: ${response.data}");
@@ -78,23 +76,25 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
         }
         if (response.statusCode == 200) {
           showToast("Transaction Successful");
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const PaymentSuccess()));
-        }
-        else if(response.statusCode == 201){
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const PaymentSuccess()));
+        } else if (response.statusCode == 201) {
           showToast("Transaction Pending");
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const PaymentPending()));
-        }
-        else if (response.statusCode == 202) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const PaymentPending()));
+        } else if (response.statusCode == 202) {
           showToast("Transaction Failed");
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const PaymentFailed()));
-        }
-        else if (response.statusCode == 400 && response.data["MESSAGE"] != null) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const PaymentFailed()));
+        } else if (response.statusCode == 400 &&
+            response.data["MESSAGE"] != null) {
           showToast(response.data["MESSAGE"]);
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Verifying(txnId: widget.txid,)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Verifying(
+                        txnId: widget.txid,
+                      )));
         } else if (response.statusCode == 401) {
           showToast("Session Expired. Please Login again.");
           // User was logged in. But Session Expired. Handle it. Navigate back to LoginScreen
@@ -103,8 +103,9 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
           // Some unknown error. Handle It
           showToast("Something went wrong please wait");
           Navigator.pushAndRemoveUntil(
-              context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
-
+              context,
+              MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+              (route) => false);
         }
       });
     } catch (err) {
@@ -119,7 +120,6 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.SNACKBAR,
         timeInSecForIosWeb: 1,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
