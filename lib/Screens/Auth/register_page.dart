@@ -377,6 +377,8 @@ class _RegisterPageState extends State<RegisterPage>
     var bytes =
     utf8.encode(_passwordController.text.toString()); // data being hashed
     var digest = sha256.convert(bytes);
+    var sampleData = _passwordController.text;
+    sampleData = digest.toString();
     var hashedPass = digest.toString();
 
     try {

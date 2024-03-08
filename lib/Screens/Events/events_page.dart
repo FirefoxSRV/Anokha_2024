@@ -4,12 +4,14 @@ import 'package:anokha/Screens/Events/specific_event.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/MyDelightToastBar.dart';
 import '../../constants.dart';
 import '../../utils/loading_component.dart';
 import '../Auth/primary_page.dart';
+
 
 class EventsWorkshopsPage extends StatefulWidget {
   final bool isFeatured;
@@ -67,8 +69,11 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
 
       final response = await dio.get(Constants.getallEvents,
           options: Options(
-              contentType: Headers.jsonContentType,
-              headers: {"Authorization": "Bearer ${sp.getString("TOKEN")}"}));
+            contentType: Headers.jsonContentType,
+            headers: {
+              "Authorization": "Bearer ${sp.getString("TOKEN")}"
+            }
+          ));
 
       if (response.statusCode == 200) {
         if (widget.isFeatured == true) {
@@ -105,7 +110,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
           });
         }
       } else if (response.statusCode == 401) {
-        _logOut();
+         _logOut();
       } else if (response.statusCode == 400) {
         showToast(response.data["MESSAGE"] ??
             "Something Went Wrong. We're working on it. Please try Again later.");
@@ -146,9 +151,9 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
           ));
 
       if (response.statusCode == 200) {
-        final List<Map<String, dynamic>> tempTagData =
-            List<Map<String, dynamic>>.from(
-                response.data["tags"] as List<dynamic>);
+
+        final List<Map<String, dynamic>> tempTagData = List<Map<String, dynamic>>.from(
+            response.data["tags"] as List<dynamic>);
 
         for (int i = 0; i < tempTagData.length; i++) {
           setState(() {
@@ -162,6 +167,8 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
         setState(() {
           selectedTags = [];
         });
+
+
       } else if (response.statusCode == 401) {
         _logOut();
       } else if (response.statusCode == 400) {
@@ -183,6 +190,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
     }
   }
 
+
   void _handleFilters() {
     final events = eventData;
     setState(() {
@@ -191,20 +199,21 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
 
     debugPrint(events[0]["isStarred"].toString());
 
-    final filteredEvents = events
-        .where((event) => ((_isWorkshop ? event['isWorkshop'] == "1" : true) &&
-            (_isEvent ? event['isWorkshop'] == "0" : true) &&
-            (_isTechnical ? event['isTechnical'] == "1" : true) &&
-            (_isNonTechnical ? event['isTechnical'] == "0" : true) &&
-            (_isGroup ? event['isGroup'] == "1" : true) &&
-            (_isStarred
-                ? (event['isStarred'].toString() == 'null' ||
-                    event['isStarred'] == '1')
-                : true) &&
-            (_isIndividual ? event['isGroup'] == "0" : true) &&
-            (selectedTags.isEmpty ||
-                event['tags'].any((e) => selectedTags
-                    .any((element) => element["tagName"] == e["tagName"])))))
+
+    final filteredEvents = events.where((event) =>
+    ((_isWorkshop ? event['isWorkshop'] == "1" : true) &&
+        (_isEvent ? event['isWorkshop'] == "0" : true) &&
+        (_isTechnical ? event['isTechnical'] == "1" : true) &&
+        (_isNonTechnical ? event['isTechnical'] == "0" : true) &&
+        (_isGroup ? event['isGroup'] == "1" : true) &&
+        (_isStarred ? (event['isStarred'].toString() == 'null' || event['isStarred'] == '1') : true) &&
+        (_isIndividual ? event['isGroup'] == "0" : true) &&
+        (selectedTags.isEmpty || event['tags'].any((e) => selectedTags.any((element) =>
+        element["tagName"] == e["tagName"]
+        )))
+
+    ))
+
         .toList();
 
     setState(() {
@@ -238,7 +247,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
   }
 
   void _updateFilterStates(bool isEvent, bool isWorkshop, bool isTechnical,
-      bool isNonTechnical, bool isGroup, bool isIndividual, bool isStarred) {
+      bool isNonTechnical, bool isGroup, bool isIndividual,bool isStarred) {
     setState(() {
       _isEvent = isEvent;
       _isWorkshop = isWorkshop;
@@ -269,8 +278,9 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
         backgroundColor: Colors.transparent,
         floatingActionButton: FloatingActionButton(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: BorderSide(color: Colors.white)),
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Colors.white)
+          ),
           backgroundColor: Color.fromRGBO(15, 21, 39, 1),
           onPressed: () {
             showModalBottomSheet(
@@ -302,7 +312,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
                         height: 24,
                       ),
                       FilterChipDemo(
-                        isStarred: _isStarred,
+                        isStarred : _isStarred,
                         isEvent: _isEvent,
                         isWorkshop: _isWorkshop,
                         isTechnical: _isTechnical,
@@ -313,6 +323,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
                         selectedTags: selectedTags,
                         tagData: tagData,
                       ),
+
                       const SizedBox(
                         height: 48,
                       ),
@@ -322,10 +333,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
               },
             );
           },
-          child: const Icon(
-            Icons.filter_list,
-            color: Colors.white,
-          ),
+          child: const Icon(Icons.filter_list,color: Colors.white,),
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -333,21 +341,21 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
           backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
           title: !_isSearching
               ? Text(
-                  widget.isFeatured ? 'Featured' : 'Events & Workshops',
-                  style: const TextStyle(color: Colors.white),
-                )
+            widget.isFeatured ? 'Featured' : 'Events & Workshops',
+            style: const TextStyle(color: Colors.white),
+          )
               : TextField(
-                  controller: _searchQueryController,
-                  autofocus: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Search...',
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white, fontSize: 16.0),
-                  onChanged:
-                      _handleSearch, // Implement this method to filter your list
-                ),
+            controller: _searchQueryController,
+            autofocus: true,
+            decoration: const InputDecoration(
+              hintText: 'Search...',
+              border: InputBorder.none,
+              hintStyle: TextStyle(color: Colors.white),
+            ),
+            style: const TextStyle(color: Colors.white, fontSize: 16.0),
+            onChanged:
+            _handleSearch, // Implement this method to filter your list
+          ),
           actions: [
             IconButton(
               icon: Icon(
@@ -373,41 +381,40 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
         body: _isLoading
             ? const LoadingComponent()
             : Padding(
-                padding: const EdgeInsets.all(10),
-                child: _filteredEvents.isEmpty
-                    ? Center(
-                        child: Text(
-                          widget.isFeatured
-                              ? "No featured events found"
-                              : "No events found",
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 30),
-                        ),
-                      )
-                    : GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: MediaQuery.of(context).size.width /
-                              (MediaQuery.of(context).size.height / 1.5),
-                        ),
-                        itemCount: _filteredEvents.length,
-                        itemBuilder: (ctx, i) => EventCard(
-                          event: _filteredEvents[i],
-                          onTap: () {
-                            Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      FadeTransition(
-                                opacity: animation,
-                                child: EventDetailPage(
-                                    eventId: _filteredEvents[i]["eventId"]),
-                              ),
-                            ));
-                          },
-                        ),
+          padding: const EdgeInsets.all(10),
+          child: _filteredEvents.isEmpty
+              ? Center(
+            child: Text(
+              widget.isFeatured
+                  ? "No featured events found"
+                  : "No events found",
+              style: const TextStyle(color: Colors.white, fontSize: 30),
+            ),
+          )
+              : GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  (MediaQuery.of(context).size.height / 1.5),
+            ),
+            itemCount: _filteredEvents.length,
+            itemBuilder: (ctx, i) => EventCard(
+              event: _filteredEvents[i],
+              onTap: () {
+                Navigator.of(context).push(PageRouteBuilder(
+                  pageBuilder:
+                      (context, animation, secondaryAnimation) =>
+                      FadeTransition(
+                        opacity: animation,
+                        child: EventDetailPage(
+                            eventId: _filteredEvents[i]["eventId"]),
                       ),
-              ),
+                ));
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -424,9 +431,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
-        (route) => false);
+        context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
   }
 }
 
@@ -475,14 +480,14 @@ class EventCard extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: event["isStarred"] != null
                     ? event["isStarred"] == "1"
-                        ? const Icon(
-                            Icons.favorite_rounded,
-                            color: Colors.redAccent,
-                          )
-                        : const Icon(
-                            Icons.favorite_outline,
-                            color: Colors.grey,
-                          )
+                    ? const Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.redAccent,
+                )
+                    : const Icon(
+                  Icons.favorite_outline,
+                  color: Colors.grey,
+                )
                     : null,
               ),
             ),
@@ -505,8 +510,8 @@ class EventCard extends StatelessWidget {
                       spacing: 4, // Reduced spacing
                       children: [
                         for (int index = 0;
-                            index < min(event["tags"].length, 3);
-                            index++) ...[
+                        index < min(event["tags"].length, 3);
+                        index++) ...[
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
@@ -517,8 +522,7 @@ class EventCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2), // Reduced padding
                             child: Text(
-                              event["tags"][index]["tagAbbreviation"]
-                                  .toString(),
+                              event["tags"][index]["tagAbbreviation"].toString(),
                               style: const TextStyle(
                                 color: Color.fromARGB(255, 8, 44, 68),
                                 fontWeight: FontWeight.bold,
@@ -537,8 +541,7 @@ class EventCard extends StatelessWidget {
 // Date
                       Row(
                         children: <Widget>[
-                          const Icon(Icons.calendar_today,
-                              size: 12), // Smaller icon
+                          const Icon(Icons.calendar_today, size: 12), // Smaller icon
                           const SizedBox(width: 4),
                           Text(
                             event["eventDate"],
@@ -568,7 +571,7 @@ class EventCard extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
                                       color: Colors.white // Smaller font size
-                                      ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -636,6 +639,7 @@ class _AnimatedIconState extends State<AnimatedIcon> {
   }
 }
 
+
 class FilterChipDemo extends StatefulWidget {
   bool isWorkshop;
   bool isEvent;
@@ -644,23 +648,20 @@ class FilterChipDemo extends StatefulWidget {
   bool isGroup;
   bool isIndividual;
   bool isStarred;
-  Function(bool, bool, bool, bool, bool, bool, bool) onUpdateFilterStates;
+  Function(bool, bool, bool, bool, bool, bool,bool) onUpdateFilterStates;
   List<Map<String, dynamic>> tagData;
   List<Map<String, dynamic>> selectedTags;
 
-  FilterChipDemo({
-    super.key,
-    required this.isStarred,
-    required this.isWorkshop,
-    required this.isEvent,
-    required this.isTechnical,
-    required this.isNonTechnical,
-    required this.isGroup,
-    required this.isIndividual,
-    required this.onUpdateFilterStates,
-    required this.selectedTags,
-    required this.tagData,
-  });
+  FilterChipDemo(
+      {required this.isStarred,required this.isWorkshop,
+        required this.isEvent,
+        required this.isTechnical,
+        required this.isNonTechnical,
+        required this.isGroup,
+        required this.isIndividual,
+        required this.onUpdateFilterStates,
+        required this.selectedTags, required this.tagData});
+
 
   @override
   _FilterChipDemoState createState() => _FilterChipDemoState();
@@ -687,13 +688,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+              widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -709,13 +711,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+                widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -731,13 +734,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+                widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -753,13 +757,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+                widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -775,13 +780,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+                widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -797,13 +803,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-                widget.isEvent,
-                widget.isWorkshop,
-                widget.isTechnical,
-                widget.isNonTechnical,
-                widget.isGroup,
-                widget.isIndividual,
-                widget.isStarred);
+              widget.isEvent,
+              widget.isWorkshop,
+              widget.isTechnical,
+              widget.isNonTechnical,
+              widget.isGroup,
+              widget.isIndividual,
+                widget.isStarred
+            );
           },
         ),
         FilterChip(
@@ -820,7 +827,8 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
                 widget.isNonTechnical,
                 widget.isGroup,
                 widget.isIndividual,
-                widget.isStarred);
+                widget.isStarred
+            );
           },
         ),
         const SizedBox(
@@ -851,13 +859,14 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
                     });
                   }
                   widget.onUpdateFilterStates(
-                      widget.isEvent,
-                      widget.isWorkshop,
-                      widget.isTechnical,
-                      widget.isNonTechnical,
-                      widget.isGroup,
-                      widget.isIndividual,
-                      widget.isStarred);
+                    widget.isEvent,
+                    widget.isWorkshop,
+                    widget.isTechnical,
+                    widget.isNonTechnical,
+                    widget.isGroup,
+                    widget.isIndividual,
+                      widget.isStarred
+                  );
                 },
               ),
             ],
@@ -866,4 +875,5 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
       ],
     );
   }
+
 }
