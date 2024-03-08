@@ -1,5 +1,5 @@
 class Constants {
-  static const String base = 'https://anokha.amrita.edu';
+  static const String base = 'https://web.abhinavramakrishnan.tech';
 
   static const String auth = '/api/auth';
 
@@ -23,5 +23,6 @@ class Constants {
   static const String getAllTags = '$base/api/admin/getAllTags';
   static const String getRegisteredEventData = '$base${user}registeredEventData';
   static const String getCrew = '$base${user}getCrew';
+  static const String getPassportContent = '$base${user}getPassportContent';
   // key = ypfBaJ
 }
