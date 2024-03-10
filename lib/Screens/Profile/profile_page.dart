@@ -157,8 +157,8 @@ class _UserProfileState extends State<UserProfile> {
                                       left: 20,
                                       right: 20),
                                   child: Container(
-                                    width: double
-                                        .infinity, // Expand the container to occupy all available width
+                                    width: double.infinity,
+                                    // Expand the container to occupy all available width
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(25)),
@@ -204,9 +204,8 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                              width:
-                                                  15), // Add some spacing between the icon and text
+                                          const SizedBox(width: 15),
+                                          // Add some spacing between the icon and text
                                           Flexible(
                                             child: Text(
                                               "You need passport to register for events. Buy passport now!",
@@ -1298,8 +1297,9 @@ class _UserProfileState extends State<UserProfile> {
                                                                       .width *
                                                                   0.1),
                                                           child: Container(
-                                                            width: double
-                                                                .infinity, // Expand the container to occupy all available width
+                                                            width:
+                                                                double.infinity,
+                                                            // Expand the container to occupy all available width
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
@@ -1374,7 +1374,8 @@ class _UserProfileState extends State<UserProfile> {
                                                                   ),
                                                                   const SizedBox(
                                                                       width:
-                                                                          15), // Add some spacing between the icon and text
+                                                                          15),
+                                                                  // Add some spacing between the icon and text
                                                                   SizedBox(
                                                                     width: MediaQuery.of(context)
                                                                             .size
@@ -1646,7 +1647,7 @@ class _UserProfileState extends State<UserProfile> {
           if (res.statusCode == 200) {
             final data = res.data;
 
-            debugPrint(data);
+            debugPrint(data.toString());
 
             setState(() {
               // Setting the variables

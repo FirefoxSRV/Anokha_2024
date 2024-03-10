@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:anokha/Screens/Auth/forgot_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
 import 'package:anokha/constants.dart';
@@ -321,10 +322,10 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                 status! < 1000, // This line is extremely important
           ),
           data: {
-            "studentEmail":
-                _emailController.text.toString(), // Valid EMAIL. Max 255 chars.
-            "studentPassword": hashedPass
-                .toString() // Min 8 chars. Cannot include '-'(hiphen) and "'"(quotes) as part of the password.
+            "studentEmail": _emailController.text.toString(),
+            // Valid EMAIL. Max 255 chars.
+            "studentPassword": hashedPass.toString()
+            // Min 8 chars. Cannot include '-'(hiphen) and "'"(quotes) as part of the password.
             // Send SHA256 Hashed Version of password.
           },
         );

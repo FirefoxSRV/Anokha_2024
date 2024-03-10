@@ -146,6 +146,7 @@ class Crew extends StatelessWidget {
 
 class CrewCard extends StatelessWidget {
   final Map<String, dynamic> crew;
+
   const CrewCard({super.key, required this.crew});
 
   @override

@@ -1,15 +1,16 @@
 import 'dart:convert';
+
 import 'package:anokha/Screens/Auth/login_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
 import 'package:anokha/constants.dart';
 import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:anokha/utils/toast_message.dart';
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:crypto/crypto.dart';
 
 class RegisterOtpScreen extends StatefulWidget {
   const RegisterOtpScreen({super.key});
@@ -258,8 +259,6 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                                                 builder: (context) {
                                           return const LoginReg();
                                         }));
-
-
                                       } else {
                                         // Navigator.pop(context);
                                         showToast('OTP went wrong');

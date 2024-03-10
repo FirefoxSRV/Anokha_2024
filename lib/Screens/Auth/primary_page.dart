@@ -1,12 +1,12 @@
 import 'package:anokha/Screens/Auth/login_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/cupertino.dart';
-
 
 class PrimaryScreen extends StatefulWidget {
   const PrimaryScreen({super.key});
+
   @override
   State<PrimaryScreen> createState() => _PrimaryScreenState();
 }
@@ -41,16 +41,16 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
                       height: 16,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:18,vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 8),
                       child: MaterialButton(
                           onPressed: () {
                             Navigator.push(
                               context,
-                              CupertinoPageRoute(builder: (context){
+                              CupertinoPageRoute(builder: (context) {
                                 return const LoginReg();
                               }),
                             );
-
                           },
                           color: const Color.fromRGBO(11, 38, 59, 1),
                           shape: RoundedRectangleBorder(
@@ -60,17 +60,20 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
                             padding: const EdgeInsets.all(20),
                             child: Text(
                               'Login',
-                              style: GoogleFonts.quicksand(fontSize: 20.0, color: Colors.white,fontWeight: FontWeight.w700),
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
                             ),
-                          )
-                      ),
+                          )),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:18,vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 8),
                       child: MaterialButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                              CupertinoPageRoute(builder: (context){
+                              CupertinoPageRoute(builder: (context) {
                                 return const RegisterPage();
                               }),
                             );
@@ -83,10 +86,12 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
                             padding: const EdgeInsets.all(20),
                             child: Text(
                               'Register',
-                              style: GoogleFonts.quicksand(fontSize: 20.0, color: Colors.white,fontWeight: FontWeight.w700),
+                              style: GoogleFonts.quicksand(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
                             ),
-                          )
-                      ),
+                          )),
                     ),
                     const SizedBox(
                       height: 16,

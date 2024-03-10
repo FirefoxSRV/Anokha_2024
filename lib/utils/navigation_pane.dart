@@ -21,17 +21,24 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
         child: GNav(
-          rippleColor: Colors.grey[300]!, // Effect color
-          hoverColor: Colors.grey[100]!, // Hover color
-          gap: 8, // Gap between icons
-          activeColor: Colors.black, // Active color
-          iconSize: 24, // Icon size
-          padding: const EdgeInsets.symmetric(
-              horizontal: 20, vertical: 12), // Button padding
-          duration: const Duration(milliseconds: 400), // Animation duration
-          tabBackgroundColor:
-              Colors.grey[100]!, // Selected tab background color
-          color: Colors.black, // Unselected icon color
+          rippleColor: Colors.grey[300]!,
+          // Effect color
+          hoverColor: Colors.grey[100]!,
+          // Hover color
+          gap: 8,
+          // Gap between icons
+          activeColor: Colors.black,
+          // Active color
+          iconSize: 24,
+          // Icon size
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          // Button padding
+          duration: const Duration(milliseconds: 400),
+          // Animation duration
+          tabBackgroundColor: Colors.grey[100]!,
+          // Selected tab background color
+          color: Colors.black,
+          // Unselected icon color
           tabs: const [
             GButton(
               icon: Icons.home,

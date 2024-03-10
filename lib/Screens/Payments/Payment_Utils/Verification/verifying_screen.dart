@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 
 class Verifying extends StatelessWidget {
   final String txnId;
+
   const Verifying({
     super.key,
     required this.txnId,

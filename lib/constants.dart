@@ -21,8 +21,9 @@ class Constants {
   static const String getRegisteredEvents = '$base${user}getRegisteredEvents';
   static const String toggleStarredEvents = '$base${user}toggleStarredEvent';
   static const String getAllTags = '$base/api/admin/getAllTags';
-  static const String getRegisteredEventData = '$base${user}registeredEventData';
+  static const String getRegisteredEventData =
+      '$base${user}registeredEventData';
   static const String getCrew = '$base${user}getCrew';
   static const String getPassportContent = '$base${user}getPassportContent';
-  // key = ypfBaJ
+// key = ypfBaJ
 }

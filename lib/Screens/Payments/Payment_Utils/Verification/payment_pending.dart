@@ -1,4 +1,3 @@
-
 import 'package:anokha/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,28 +15,30 @@ class PaymentPending extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height*0.1,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
             Center(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius
-                      .all(
-                      Radius.circular(
-                          MediaQuery.of(context).size.width*0.08)),
-                  color: Colors.white,),
-
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      MediaQuery.of(context).size.width * 0.08)),
+                  color: Colors.white,
+                ),
                 child: Padding(
-                  padding:
-                  EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width*0.1,right: MediaQuery.of(context).size.width*0.1,top: MediaQuery.of(context).size.width*0.1,bottom: MediaQuery.of(context).size.width*0.05,),
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    right: MediaQuery.of(context).size.width * 0.1,
+                    top: MediaQuery.of(context).size.width * 0.1,
+                    bottom: MediaQuery.of(context).size.width * 0.05,
+                  ),
                   child: Column(
                     children: [
                       Lottie.asset(
                         //todo: lottie
                         'assets/json/transactionPending.json',
-                        width: MediaQuery.of(context).size.width*0.5,
-                        height: MediaQuery.of(context).size.width*0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.width * 0.5,
                       ),
                       Text(
                         "Payment Pending",
@@ -54,40 +55,28 @@ class PaymentPending extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-
                       Padding(
-                        padding:
-                        const EdgeInsets.all(
-                            20),
+                        padding: const EdgeInsets.all(20),
                         child: MaterialButton(
                           onPressed: () {
-
                             // should go to event registration page
-                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) {
                               return const HomePage();
                             }), (route) => false);
-
                           },
-                          shape:
-                          RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius
-                                .circular(25),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
                           ),
-                          minWidth: MediaQuery.of(context).size.width*0.1,
-                          padding: const EdgeInsets
-                              .symmetric(
-                              horizontal: 12.0,
-                              vertical: 8.0),
-                          color: const Color.fromARGB(
-                              255, 8, 44, 68),
+                          minWidth: MediaQuery.of(context).size.width * 0.1,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 8.0),
+                          color: const Color.fromARGB(255, 8, 44, 68),
                           child: Text(
                             "Back to home",
-                            style:
-                            GoogleFonts.nunito(
+                            style: GoogleFonts.nunito(
                               fontSize: 15,
-                              fontWeight:
-                              FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
@@ -98,8 +87,9 @@ class PaymentPending extends StatelessWidget {
                 ),
               ),
             ),
-
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:anokha/Screens/Auth/primary_page.dart';
 import 'package:anokha/Screens/Events/specific_event.dart';
 import 'package:anokha/constants.dart';
@@ -6,11 +7,12 @@ import 'package:anokha/utils/loading_component.dart';
 import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EventsWorkshopsPage extends StatefulWidget {
   final bool isFeatured;
+
   const EventsWorkshopsPage({super.key, required this.isFeatured});
 
   @override
@@ -19,6 +21,7 @@ class EventsWorkshopsPage extends StatefulWidget {
 
 class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
   bool _isLoading = false;
+
   // final String _selectedDepartment = '';
   List<Map<String, dynamic>> _filteredEvents = [], eventData = [];
   bool _isSearching = false;
@@ -457,9 +460,10 @@ class EventCard extends StatelessWidget {
     final double imageHeight = gridWidth; // 16:9 aspect ratio for images
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.all(5), // Reduced margin
-      clipBehavior: Clip
-          .antiAlias, // Add this line to clip the content to the card's shape
+      margin: const EdgeInsets.all(5),
+      // Reduced margin
+      clipBehavior: Clip.antiAlias,
+      // Add this line to clip the content to the card's shape
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // Consistent border radius
       ),

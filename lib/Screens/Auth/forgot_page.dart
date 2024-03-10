@@ -1,12 +1,13 @@
 import 'dart:convert';
+
 import 'package:anokha/Screens/Auth/primary_page.dart';
 import 'package:anokha/constants.dart';
 import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:anokha/utils/toast_message.dart';
+import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dio/dio.dart';
-import 'package:crypto/crypto.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -331,7 +332,6 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
             }),
             (route) => false,
           );
-
         } else if (response.statusCode == 400) {
           showToast(response.data['MESSAGE'] ??
               "Something went wrong, try again later");

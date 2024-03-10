@@ -8,7 +8,6 @@ class HelperFunctions {
   static String userTokenKey = "USERTOKENKEY";
   static String otpTokenKey = "OTPTOKENKEY";
 
-
   // saving the data to SecureStorage
   static Future<bool> saveUserLoggedInStatus(bool isUserLoggedIn) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
@@ -19,7 +18,6 @@ class HelperFunctions {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return await sf.setString(userNameKey, userName);
   }
-
 
   static Future<bool> saveUserEmailSF(String userEmail) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
@@ -63,4 +61,3 @@ class HelperFunctions {
     return sf.getString(otpTokenKey);
   }
 }
-

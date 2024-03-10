@@ -305,8 +305,8 @@ class _BuyPassportWaitingScreenState extends State<BuyPassportWaitingScreen> {
             response.data["MESSAGE"] != null) {
           if (response.data["MESSAGE"] == "You Already have a passport!") {
             //todo: bug
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
             // nextScreenReplace(context, const UserProfile());
           }
           showToast(response.data["MESSAGE"]);

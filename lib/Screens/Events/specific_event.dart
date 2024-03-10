@@ -5,16 +5,17 @@ import 'package:anokha/Screens/Payments/payment_screen.dart';
 import 'package:anokha/constants.dart';
 import 'package:anokha/utils/loading_component.dart';
 import 'package:anokha/utils/toast_message.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EventDetailPage extends StatefulWidget {
   final int eventId;
+
   const EventDetailPage({super.key, required this.eventId});
 
   @override
