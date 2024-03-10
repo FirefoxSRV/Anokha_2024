@@ -339,17 +339,22 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: events.length,
-                itemBuilder: (ctx, i) => EventCard(
-                  event: events[i],
-                  onTap: () {
-                    Navigator.of(context).push(PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          FadeTransition(
-                            opacity: animation,
-                            child: EventDetailPage(eventId: events[i]["eventId"]),
-                          ),
-                    ));
-                  },
+                itemBuilder: (ctx, i) => Column(
+                  children: [
+                    SizedBox(height: 10,),
+                    EventCard(
+                      event: events[i],
+                      onTap: () {
+                        Navigator.of(context).push(PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) =>
+                              FadeTransition(
+                                opacity: animation,
+                                child: EventDetailPage(eventId: events[i]["eventId"]),
+                              ),
+                        ));
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
