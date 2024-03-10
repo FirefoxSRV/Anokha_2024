@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../utils/MyDelightToastBar.dart';
+import '../../utils/toast_message.dart';
 import '../../constants.dart';
 import '../../utils/loading_component.dart';
 import '../Auth/login_page.dart';

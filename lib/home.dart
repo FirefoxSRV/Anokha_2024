@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'Screens/Events/events_page.dart';
 import 'Screens/Profile/profilePage.dart';
 import 'Screens/countdown.dart';
-import 'Utils/NavigationPane.dart';
+import 'Utils/navigation_pane.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

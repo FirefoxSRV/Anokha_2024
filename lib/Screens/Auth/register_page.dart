@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-import 'package:anokha/utils/MyDelightToastBar.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
@@ -380,8 +380,6 @@ class _RegisterPageState extends State<RegisterPage>
     var bytes =
         utf8.encode(_passwordController.text.toString()); // data being hashed
     var digest = sha256.convert(bytes);
-    var sampleData = _passwordController.text;
-    sampleData = digest.toString();
     var hashedPass = digest.toString();
 
     try {
@@ -423,25 +421,27 @@ class _RegisterPageState extends State<RegisterPage>
         await HelperFunctions.saveOTPTokenSF(response.data["SECRET_TOKEN"]);
 
         // should go to otp screen
-        MyDelightToastBar().success(context, "OTP sent successfully");
+        showToast("OTP sent successfully");
 
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const RegisterOtpScreen()));
 
         return "1";
       } else if (response.statusCode == 400) {
-        MyDelightToastBar().error(context, "User already exists");
+        showToast(response.data['MESSAGE'] ??
+            "Something went wrong! Please try again later.");
         return "-1";
       }
 
-      MyDelightToastBar().error(context,
+      showToast(
           "Something went wrong. We're looking into it. Please try again later.");
       return "-1";
     } catch (err) {
       if (kDebugMode) {
         print("[ERROR]: $err");
       }
-      MyDelightToastBar().error(context,
+
+      showToast(
           "Something went wrong. We're looking into it. Please try again later.");
     } finally {
       setState(() {

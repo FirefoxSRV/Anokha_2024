@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../utils/MyDelightToastBar.dart';
+import '../../utils/toast_message.dart';
 import '../../constants.dart';
 import '../../utils/loading_component.dart';
 import '../Auth/primary_page.dart';

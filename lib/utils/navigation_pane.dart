@@ -30,7 +30,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               horizontal: 20, vertical: 12), // Button padding
           duration: const Duration(milliseconds: 400), // Animation duration
           tabBackgroundColor:
-          Colors.grey[100]!, // Selected tab background color
+              Colors.grey[100]!, // Selected tab background color
           color: Colors.black, // Unselected icon color
           tabs: const [
             GButton(
@@ -41,7 +41,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Icons.event_note,
               text: 'Events',
             ),
-
             GButton(
               icon: Icons.trending_up,
               text: 'Featured',
