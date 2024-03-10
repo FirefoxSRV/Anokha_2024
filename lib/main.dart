@@ -1,7 +1,4 @@
-
-import 'package:anokha/Screens/crew_page.dart';
 import 'package:anokha/utils/helper/helper_function.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/Auth/login_page.dart';
@@ -9,11 +6,8 @@ import 'Screens/Auth/primary_page.dart';
 import 'Screens/Events/events_page.dart';
 import 'home.dart';
 
-
 void main() {
-  runApp(
-      MyApp()
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +33,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       getUserLoggedInStatus();
     });
     debugPrint("Hi  --- ${_isSignedIn.toString()}");
@@ -54,14 +48,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => _isSignedIn ? const HomePage() : const PrimaryScreen(),
+        '/': (context) =>
+            _isSignedIn ? const HomePage() : const PrimaryScreen(),
         // '/': (context) => CrewPage(),
 
-        '/events': (context) => EventsWorkshopsPage(isFeatured: false,),
+        '/events': (context) => const EventsWorkshopsPage(
+              isFeatured: false,
+            ),
         '/home': (context) => const HomePage(),
         '/logreg': (context) => const LoginReg(),
       },
     );
   }
 }
-

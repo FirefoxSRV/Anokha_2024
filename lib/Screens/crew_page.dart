@@ -1,4 +1,3 @@
-import 'package:anokha/Screens/Profile/profilePage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,17 +76,20 @@ class _CrewPageState extends State<CrewPage> {
         ),
       ),
       child: Scaffold(
-
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(43, 30, 56, 1),
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back,color: Colors.white,),
-            onPressed: (){
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
               Navigator.pop(context);
             },
           ),
-          title: Text('THE CREW', style:GoogleFonts.habibi(color:Colors.white, fontSize: 24)),
+          title: Text('THE CREW',
+              style: GoogleFonts.habibi(color: Colors.white, fontSize: 24)),
         ),
         backgroundColor: Colors.transparent,
         body: ListView.builder(
@@ -117,12 +119,14 @@ class Crew extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             crew['crewName'].toString(),
-            style: GoogleFonts.quicksand(color:Colors.white, fontSize: 24),
+            style: GoogleFonts.quicksand(color: Colors.white, fontSize: 24),
           ),
         ),
-        SizedBox(height: 24,),
+        const SizedBox(
+          height: 24,
+        ),
         GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -134,7 +138,9 @@ class Crew extends StatelessWidget {
             crew: crew['teamMembers'][i],
           ),
         ),
-        SizedBox(height: 36,)
+        SizedBox(
+          height: 36,
+        )
       ],
     );
   }
@@ -160,8 +166,11 @@ class CrewCard extends StatelessWidget {
             style: GoogleFonts.quicksand(
                 color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          Text(crew['roleDescription'],style: GoogleFonts.quicksand(
-              color: Colors.white, fontWeight: FontWeight.bold),),
+          Text(
+            crew['roleDescription'],
+            style: GoogleFonts.quicksand(
+                color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
