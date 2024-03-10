@@ -17,7 +17,7 @@
         </intent>
     </queries>
     <application
-        android:label="anokha"
+        android:label="Anokha 2024"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
