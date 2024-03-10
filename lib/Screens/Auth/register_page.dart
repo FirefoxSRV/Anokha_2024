@@ -311,6 +311,9 @@ class _RegisterPageState extends State<RegisterPage>
                                         color: Color(0xFF264A62)),
                                   ),
                                 ),
+                                const SizedBox(
+                                  height: 32,
+                                ),
                                 const Spacer(flex: 3),
                               ],
                             ),

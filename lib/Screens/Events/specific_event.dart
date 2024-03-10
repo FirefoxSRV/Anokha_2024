@@ -261,8 +261,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               child: FloatingActionButton.extended(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
-                                backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
-                                extendedPadding: const EdgeInsetsDirectional.all(16),
+                                backgroundColor:
+                                    const Color.fromRGBO(11, 38, 59, 1),
+                                extendedPadding:
+                                    const EdgeInsetsDirectional.all(16),
                                 onPressed: () {
                                   _viewRegistration().then((res) {
                                     if (res == "1") {
@@ -298,7 +300,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                     "Registration Details",
                                                     style:
                                                         GoogleFonts.quicksand(
-                                                      textStyle: const TextStyle(
+                                                      textStyle:
+                                                          const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 24,
@@ -478,7 +481,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                           .toString(),
                                                       style: GoogleFonts
                                                           .sourceCodePro(
-                                                        textStyle: const TextStyle(
+                                                        textStyle:
+                                                            const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 16,
@@ -589,83 +593,122 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                     color: Colors.white),
                               ),
                             )
-                          : SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: FloatingActionButton.extended(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16)),
-                                backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
-                                extendedPadding: const EdgeInsetsDirectional.all(16),
-                                onPressed: () {
-                                  if (eventDetails["isGroup"] == "0") {
-                                    // showToast("Individual event");
-                                    _register(
-                                        eventDetails["eventId"].toString(),
-                                        eventDetails["minTeamSize"]);
-                                  }
-                                  if (eventDetails["isGroup"] == "1" &&
-                                      eventDetails["needGroupData"] == "0" &&
-                                      eventDetails["minTeamSize"] ==
-                                          eventDetails["maxTeamSize"]) {
-                                    _register(
-                                        eventDetails["eventId"].toString(),
-                                        eventDetails["minTeamSize"]);
-                                  }
-                                  if (eventDetails["isGroup"] == "1" &&
-                                      eventDetails["needGroupData"] == "0" &&
-                                      eventDetails["minTeamSize"] !=
-                                          eventDetails["maxTeamSize"]) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterToGroupEventPage(
-                                                  eventData: {
-                                                    "minTeamSize": eventDetails[
-                                                        "minTeamSize"],
-                                                    "maxTeamSize": eventDetails[
-                                                        "maxTeamSize"],
-                                                    "eventName": eventDetails[
-                                                        "eventName"],
-                                                    "eventId":
-                                                        eventDetails["eventId"],
-                                                    // "needGroupData":event["needGroupData"],
-                                                    "needGroupData": "0",
-                                                  },
-                                                )));
-                                  }
-                                  if (eventDetails["isGroup"] == "1" &&
-                                      eventDetails["needGroupData"] == "1") {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RegisterToGroupEventPage(
-                                                  eventData: {
-                                                    "minTeamSize": eventDetails[
-                                                        "minTeamSize"],
-                                                    "maxTeamSize": eventDetails[
-                                                        "maxTeamSize"],
-                                                    "eventName": eventDetails[
-                                                        "eventName"],
-                                                    "eventId":
-                                                        eventDetails["eventId"],
-                                                    "needGroupData":
-                                                        eventDetails[
-                                                            "needGroupData"],
-                                                  },
-                                                )));
-                                  }
-                                },
-                                label: Text(
-                                  "Register",
-                                  style: GoogleFonts.quicksand(
-                                      color: Colors.white),
+                          : (eventDetails["seatsFilled"] >=
+                                  eventDetails["maxSeats"])
+                              ? SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: FloatingActionButton.extended(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    backgroundColor:
+                                        const Color.fromRGBO(11, 38, 59, 1),
+                                    extendedPadding:
+                                        const EdgeInsetsDirectional.all(16),
+                                    onPressed: () {},
+                                    label: Text(
+                                      "Registrations Closed",
+                                      style: GoogleFonts.quicksand(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    icon: const Icon(
+                                      Icons.event_busy_rounded,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: FloatingActionButton.extended(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    backgroundColor:
+                                        const Color.fromRGBO(11, 38, 59, 1),
+                                    extendedPadding:
+                                        const EdgeInsetsDirectional.all(16),
+                                    onPressed: () {
+                                      if (eventDetails["isGroup"] == "0") {
+                                        // showToast("Individual event");
+                                        _register(
+                                            eventDetails["eventId"].toString(),
+                                            eventDetails["minTeamSize"]);
+                                      }
+                                      if (eventDetails["isGroup"] == "1" &&
+                                          eventDetails["needGroupData"] ==
+                                              "0" &&
+                                          eventDetails["minTeamSize"] ==
+                                              eventDetails["maxTeamSize"]) {
+                                        _register(
+                                            eventDetails["eventId"].toString(),
+                                            eventDetails["minTeamSize"]);
+                                      }
+                                      if (eventDetails["isGroup"] == "1" &&
+                                          eventDetails["needGroupData"] ==
+                                              "0" &&
+                                          eventDetails["minTeamSize"] !=
+                                              eventDetails["maxTeamSize"]) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RegisterToGroupEventPage(
+                                                      eventData: {
+                                                        "minTeamSize":
+                                                            eventDetails[
+                                                                "minTeamSize"],
+                                                        "maxTeamSize":
+                                                            eventDetails[
+                                                                "maxTeamSize"],
+                                                        "eventName":
+                                                            eventDetails[
+                                                                "eventName"],
+                                                        "eventId": eventDetails[
+                                                            "eventId"],
+                                                        // "needGroupData":event["needGroupData"],
+                                                        "needGroupData": "0",
+                                                      },
+                                                    )));
+                                      }
+                                      if (eventDetails["isGroup"] == "1" &&
+                                          eventDetails["needGroupData"] ==
+                                              "1") {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RegisterToGroupEventPage(
+                                                      eventData: {
+                                                        "minTeamSize":
+                                                            eventDetails[
+                                                                "minTeamSize"],
+                                                        "maxTeamSize":
+                                                            eventDetails[
+                                                                "maxTeamSize"],
+                                                        "eventName":
+                                                            eventDetails[
+                                                                "eventName"],
+                                                        "eventId": eventDetails[
+                                                            "eventId"],
+                                                        "needGroupData":
+                                                            eventDetails[
+                                                                "needGroupData"],
+                                                      },
+                                                    )));
+                                      }
+                                    },
+                                    label: Text(
+                                      "Register",
+                                      style: GoogleFonts.quicksand(
+                                          color: Colors.white),
+                                    ),
+                                    icon: const Icon(Icons.event_available,
+                                        color: Colors.white),
+                                  ),
                                 ),
-                                icon: const Icon(Icons.event_available,
-                                    color: Colors.white),
-                              ),
-                            ),
                     ]
                   ],
                 ));
@@ -741,7 +784,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     padding: const EdgeInsets.all(10),
                     child: Center(
                       child: Text(
-                        "₹ ${(event["eventPrice"]*1.18).ceil()}",
+                        "₹ ${(event["eventPrice"] * 1.18).ceil()}",
                         style: GoogleFonts.quicksand(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -765,8 +808,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         height: 4,
                       ),
                       Padding(
-                          padding:
-                              const EdgeInsets.only(left: 20, right: 20, top: 10),
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10),
                           child: buildDetailTile(
                               Icons.calendar_today,
                               "${formatEventDate(event['eventDate'].substring(0, 10))} 2024",
@@ -789,7 +832,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       const SizedBox(
                         height: 2,
                       ),
-                      const Divider(color: Colors.grey, indent: 15, endIndent: 15),
+                      const Divider(
+                          color: Colors.grey, indent: 15, endIndent: 15),
                       const SizedBox(
                         height: 2,
                       ),
@@ -800,11 +844,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       const SizedBox(
                         height: 2,
                       ),
-                      const Divider(color: Colors.grey, indent: 15, endIndent: 15),
+                      const Divider(
+                          color: Colors.grey, indent: 15, endIndent: 15),
                       Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
                           child: buildDetailTile(
-                              Icons.design_services_rounded, "${event['isGroup'] == "1" ? "Group" : "Individual"} ${event['isWorkshop'] == "1" ? "workshop" : "event"}", "Type")),
+                              Icons.design_services_rounded,
+                              "${event['isGroup'] == "1" ? "Group" : "Individual"} ${event['isWorkshop'] == "1" ? "workshop" : "event"}",
+                              "Type")),
                       const SizedBox(
                         height: 2,
                       ),
@@ -867,10 +914,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             em: GoogleFonts.poppins(color: Colors.white),
                             strong: GoogleFonts.poppins(color: Colors.white),
                             del: GoogleFonts.poppins(color: Colors.white),
-                            blockquote: GoogleFonts.poppins(color: Colors.white),
+                            blockquote:
+                                GoogleFonts.poppins(color: Colors.white),
                             img: GoogleFonts.poppins(color: Colors.white),
                             checkbox: GoogleFonts.poppins(color: Colors.white),
-                            listBullet: GoogleFonts.poppins(color: Colors.white),
+                            listBullet:
+                                GoogleFonts.poppins(color: Colors.white),
                             tableBody: GoogleFonts.poppins(color: Colors.white),
                             tableHead: GoogleFonts.poppins(color: Colors.white),
                           ),
@@ -900,8 +949,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
             ),
             Text(
               title,
-              style:
-                  GoogleFonts.quicksand(color: const Color.fromRGBO(11, 38, 59, 1)),
+              style: GoogleFonts.quicksand(
+                  color: const Color.fromRGBO(11, 38, 59, 1)),
             )
           ],
         ),

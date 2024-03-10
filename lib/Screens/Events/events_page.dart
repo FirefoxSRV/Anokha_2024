@@ -17,10 +17,10 @@ class EventsWorkshopsPage extends StatefulWidget {
   const EventsWorkshopsPage({super.key, required this.isFeatured});
 
   @override
-  _EventsWorkshopsPageState createState() => _EventsWorkshopsPageState();
+  EventsWorkshopsPageState createState() => EventsWorkshopsPageState();
 }
 
-class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
+class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
   bool _isLoading = false;
   // final String _selectedDepartment = '';
   List<Map<String, dynamic>> _filteredEvents = [], eventData = [];
@@ -68,10 +68,10 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
 
       final response = await dio.get(Constants.getallEvents,
           options: Options(
-            contentType: Headers.jsonContentType,
-            headers: {
-              "Authorization": "Bearer ${sp.getString("TOKEN")}"
-            }
+              contentType: Headers.jsonContentType,
+              headers: {
+                "Authorization": "Bearer ${sp.getString("TOKEN")}"
+              }
           ));
 
       if (response.statusCode == 200) {
@@ -109,7 +109,7 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
           });
         }
       } else if (response.statusCode == 401) {
-         _logOut();
+        _logOut();
       } else if (response.statusCode == 400) {
         showToast(response.data["MESSAGE"] ??
             "Something Went Wrong. We're working on it. Please try Again later.");
@@ -261,156 +261,159 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(43, 30, 56, 1),
-            Color.fromRGBO(11, 38, 59, 1),
-            Color.fromRGBO(15, 21, 39, 1),
-          ],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: const BorderSide(color: Colors.white)
+    return RefreshIndicator(
+      onRefresh: _pullRefresh,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(43, 30, 56, 1),
+              Color.fromRGBO(11, 38, 59, 1),
+              Color.fromRGBO(15, 21, 39, 1),
+            ],
           ),
-          backgroundColor: const Color.fromRGBO(15, 21, 39, 1),
-          onPressed: () {
-            showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(16.0),
-                ),
-              ),
-              constraints: BoxConstraints(
-                minWidth: MediaQuery.of(context).size.width,
-              ),
-              enableDrag: true,
-              useSafeArea: true,
-              isDismissible: true,
-              showDragHandle: true,
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Filters",
-                        style: GoogleFonts.quicksand(fontSize: 30),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      FilterChipDemo(
-                        isStarred : _isStarred,
-                        isEvent: _isEvent,
-                        isWorkshop: _isWorkshop,
-                        isTechnical: _isTechnical,
-                        isNonTechnical: _isNonTechnical,
-                        isGroup: _isGroup,
-                        isIndividual: _isIndividual,
-                        onUpdateFilterStates: _updateFilterStates,
-                        selectedTags: selectedTags,
-                        tagData: tagData,
-                      ),
-
-                      const SizedBox(
-                        height: 48,
-                      ),
-                    ],
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          floatingActionButton: FloatingActionButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: const BorderSide(color: Colors.white)
+            ),
+            backgroundColor: const Color.fromRGBO(15, 21, 39, 1),
+            onPressed: () {
+              showModalBottomSheet(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(16.0),
                   ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.filter_list,color: Colors.white,),
-        ),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
-          title: !_isSearching
-              ? Text(
-            widget.isFeatured ? 'Featured' : 'Events & Workshops',
-            style: const TextStyle(color: Colors.white),
-          )
-              : TextField(
-            controller: _searchQueryController,
-            autofocus: true,
-            decoration: const InputDecoration(
-              hintText: 'Search...',
-              border: InputBorder.none,
-              hintStyle: TextStyle(color: Colors.white),
-            ),
-            style: const TextStyle(color: Colors.white, fontSize: 16.0),
-            onChanged:
-            _handleSearch, // Implement this method to filter your list
+                ),
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width,
+                ),
+                enableDrag: true,
+                useSafeArea: true,
+                isDismissible: true,
+                showDragHandle: true,
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Filters",
+                          style: GoogleFonts.quicksand(fontSize: 30),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        FilterChipDemo(
+                          isStarred : _isStarred,
+                          isEvent: _isEvent,
+                          isWorkshop: _isWorkshop,
+                          isTechnical: _isTechnical,
+                          isNonTechnical: _isNonTechnical,
+                          isGroup: _isGroup,
+                          isIndividual: _isIndividual,
+                          onUpdateFilterStates: _updateFilterStates,
+                          selectedTags: selectedTags,
+                          tagData: tagData,
+                        ),
+
+                        const SizedBox(
+                          height: 48,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: const Icon(Icons.filter_list,color: Colors.white,),
           ),
-          actions: [
-            IconButton(
-              icon: Icon(
-                _isSearching ? Icons.cancel : Icons.search,
-                color: Colors.white,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
+            title: !_isSearching
+                ? Text(
+              widget.isFeatured ? 'Featured' : 'Events & Workshops',
+              style: const TextStyle(color: Colors.white),
+            )
+                : TextField(
+              controller: _searchQueryController,
+              autofocus: true,
+              decoration: const InputDecoration(
+                hintText: 'Search...',
+                border: InputBorder.none,
+                hintStyle: TextStyle(color: Colors.white),
               ),
-              onPressed: () {
-                setState(() {
-                  _isSearching = !_isSearching;
-                  if (!_isSearching) {
-                    _searchQueryController.clear();
-                    if (widget.isFeatured == false) {
-                      // _applyFilter();
-                    } else {
-                      // _applyFilterFeatures();
-                    } // Reset the filter/search to show all items again
-                  }
-                });
-              },
+              style: const TextStyle(color: Colors.white, fontSize: 16.0),
+              onChanged:
+              _handleSearch, // Implement this method to filter your list
             ),
-          ],
-        ),
-        body: _isLoading
-            ? const LoadingComponent()
-            : Padding(
-          padding: const EdgeInsets.all(10),
-          child: _filteredEvents.isEmpty
-              ? Center(
-            child: Text(
-              widget.isFeatured
-                  ? "No featured events found"
-                  : "No events found",
-              style: const TextStyle(color: Colors.white, fontSize: 30),
-            ),
-          )
-              : GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.5),
-            ),
-            itemCount: _filteredEvents.length,
-            itemBuilder: (ctx, i) => EventCard(
-              event: _filteredEvents[i],
-              onTap: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                  pageBuilder:
-                      (context, animation, secondaryAnimation) =>
-                      FadeTransition(
-                        opacity: animation,
-                        child: EventDetailPage(
-                            eventId: _filteredEvents[i]["eventId"]),
-                      ),
-                ));
-              },
+            actions: [
+              IconButton(
+                icon: Icon(
+                  _isSearching ? Icons.cancel : Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isSearching = !_isSearching;
+                    if (!_isSearching) {
+                      _searchQueryController.clear();
+                      if (widget.isFeatured == false) {
+                        // _applyFilter();
+                      } else {
+                        // _applyFilterFeatures();
+                      } // Reset the filter/search to show all items again
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+          body: _isLoading
+              ? const LoadingComponent()
+              : Padding(
+            padding: const EdgeInsets.all(10),
+            child: _filteredEvents.isEmpty
+                ? Center(
+              child: Text(
+                widget.isFeatured
+                    ? "No featured events found"
+                    : "No events found",
+                style: const TextStyle(color: Colors.white, fontSize: 30),
+              ),
+            )
+                : GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 1.5),
+              ),
+              itemCount: _filteredEvents.length,
+              itemBuilder: (ctx, i) => EventCard(
+                event: _filteredEvents[i],
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder:
+                        (context, animation, secondaryAnimation) =>
+                        FadeTransition(
+                          opacity: animation,
+                          child: EventDetailPage(
+                              eventId: _filteredEvents[i]["eventId"]),
+                        ),
+                  ));
+                },
+              ),
             ),
           ),
         ),
@@ -418,6 +421,11 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
     );
   }
 
+  Future<void> _pullRefresh() async {
+    _getAllEvents();
+    _getAllTags();
+    // showToast("Refresh successul");
+  }
   void _logOut() {
     //clearing the cache
     SharedPreferences.getInstance().then((sp) {
@@ -662,10 +670,10 @@ class FilterChipDemo extends StatefulWidget {
 
 
   @override
-  _FilterChipDemoState createState() => _FilterChipDemoState();
+  FilterChipDemoState createState() => FilterChipDemoState();
 }
 
-class _FilterChipDemoState extends State<FilterChipDemo> {
+class FilterChipDemoState extends State<FilterChipDemo> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -686,13 +694,13 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
-              widget.isStarred
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
+                widget.isStarred
             );
           },
         ),
@@ -709,12 +717,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
                 widget.isStarred
             );
           },
@@ -732,12 +740,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
                 widget.isStarred
             );
           },
@@ -755,12 +763,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
                 widget.isStarred
             );
           },
@@ -778,12 +786,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
                 widget.isStarred
             );
           },
@@ -801,12 +809,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
               }
             });
             widget.onUpdateFilterStates(
-              widget.isEvent,
-              widget.isWorkshop,
-              widget.isTechnical,
-              widget.isNonTechnical,
-              widget.isGroup,
-              widget.isIndividual,
+                widget.isEvent,
+                widget.isWorkshop,
+                widget.isTechnical,
+                widget.isNonTechnical,
+                widget.isGroup,
+                widget.isIndividual,
                 widget.isStarred
             );
           },
@@ -857,12 +865,12 @@ class _FilterChipDemoState extends State<FilterChipDemo> {
                     });
                   }
                   widget.onUpdateFilterStates(
-                    widget.isEvent,
-                    widget.isWorkshop,
-                    widget.isTechnical,
-                    widget.isNonTechnical,
-                    widget.isGroup,
-                    widget.isIndividual,
+                      widget.isEvent,
+                      widget.isWorkshop,
+                      widget.isTechnical,
+                      widget.isNonTechnical,
+                      widget.isGroup,
+                      widget.isIndividual,
                       widget.isStarred
                   );
                 },
