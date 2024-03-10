@@ -1,21 +1,21 @@
 import 'dart:convert';
 import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:anokha/utils/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dio/dio.dart';
 import 'package:crypto/crypto.dart';
-import '../../constants.dart';
-import '../../utils/helper/helper_function.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
 
   @override
-  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
+  ForgotPasswordPageState createState() => ForgotPasswordPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage>
+class ForgotPasswordPageState extends State<ForgotPasswordPage>
     with TickerProviderStateMixin {
   final _emailController = TextEditingController();
   final _otpController = TextEditingController();
@@ -323,10 +323,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
             _showPasswordFields = false;
             _showOtpField = false;
           });
-          Navigator.pushAndRemoveUntil(context,
-              MaterialPageRoute(builder: (context) {
-            return const PrimaryScreen();
-          }), (route) => false);
+
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return const PrimaryScreen();
+            }),
+            (route) => false,
+          );
+
         } else if (response.statusCode == 400) {
           showToast(response.data['MESSAGE'] ??
               "Something went wrong, try again later");

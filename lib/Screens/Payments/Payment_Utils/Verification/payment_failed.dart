@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-
-void main() => runApp(const PaymentSuccess());
-
-class PaymentSuccess extends StatelessWidget {
-  const PaymentSuccess({super.key});
+class PaymentFailed extends StatelessWidget {
+  const PaymentFailed({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +29,26 @@ class PaymentSuccess extends StatelessWidget {
                 child: Padding(
                   padding:
                   EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width*0.1,right: MediaQuery.of(context).size.width*0.1,top: MediaQuery.of(context).size.width*0.1,bottom: MediaQuery.of(context).size.width*0.05,),
+                      left: MediaQuery.of(context).size.width*0.1,right: MediaQuery.of(context).size.width*0.1,top: MediaQuery.of(context).size.width*0.1,bottom: MediaQuery.of(context).size.width*0.05,),
                   child: Column(
                     children: [
                       Lottie.asset(
-                        'assets/json/transactionSuccess.json',
+                        'assets/json/transactionFailed.json',
                         width: MediaQuery.of(context).size.width*0.5,
                         height: MediaQuery.of(context).size.width*0.5,
                       ),
                       Text(
-                        "Payment Success",
+                        "Payment failed",
                         style: GoogleFonts.nunito(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "Please Try again later",
+                        style: GoogleFonts.nunito(
+                          fontSize: 14,
                           color: Colors.black,
                         ),
                       ),
@@ -54,14 +58,11 @@ class PaymentSuccess extends StatelessWidget {
                             20),
                         child: MaterialButton(
                           onPressed: () {
-
-                            // should go to event registration page
-
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
                               return const HomePage();
                             }), (route) => false);
-                            // TODO: route
-                            // nextScreenReplace(context,EventsWorkshopsPage(isFeatured: false,));
+
+                            // Navigator.of(context).pop();
                           },
                           shape:
                           RoundedRectangleBorder(

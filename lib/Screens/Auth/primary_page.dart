@@ -1,8 +1,8 @@
+import 'package:anokha/Screens/Auth/login_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
-import 'login_page.dart';
 
 
 class PrimaryScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class _PrimaryScreenState extends State<PrimaryScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         return true;
       },
       child: Scaffold(

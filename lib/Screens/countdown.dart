@@ -1,26 +1,27 @@
-import 'dart:async';
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Events/events_page.dart';
+import 'package:anokha/Screens/Events/specific_event.dart';
 import 'package:anokha/Screens/crew_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/alert_dialog.dart';
+import 'package:anokha/utils/loading_component.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Add this import to format dates
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../utils/toast_message.dart';
-import '../constants.dart';
-import '../utils/AlertDialog.dart';
-import '../utils/loading_component.dart';
-import 'Auth/primary_page.dart';
-import 'Events/events_page.dart';
-import 'Events/specific_event.dart';
+
 class Countdown extends StatefulWidget {
   const Countdown({super.key});
 
   @override
-  _CountdownPageState createState() => _CountdownPageState();
+  CountdownPageState createState() => CountdownPageState();
 }
 
-class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin {
+class CountdownPageState extends State<Countdown>
+    with TickerProviderStateMixin {
   late ScrollController scrollController;
   List<dynamic> events = [];
   List<Map<String, dynamic>> pastEvents = [];
@@ -60,7 +61,8 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
       });
     });
 
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500))
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500))
       ..repeat(reverse: true);
     _scaleAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
       CurvedAnimation(
@@ -101,7 +103,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
     try {
       final sp = await SharedPreferences.getInstance();
       final secretToken = sp.getString("TOKEN") ?? "";
-      print(secretToken);
+      // debugPrint(secretToken);
       // Check if token is available
       if (secretToken.isEmpty) {
         throw Exception('Authorization token not found.');
@@ -141,7 +143,6 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
     }
   }
 
-
   @override
   void dispose() {
     scrollController.dispose();
@@ -173,38 +174,41 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
             backgroundColor: Colors.transparent,
             actions: [
               IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return const CrewPage();
-                    }));
-                  },
-                  icon: const Icon(
-                    Icons.people,
-                    color: Colors.white,
-                  ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const CrewPage();
+                  }));
+                },
+                icon: const Icon(
+                  Icons.people,
+                  color: Colors.white,
+                ),
               ),
               IconButton(
-                  onPressed: () {
-                    showDialog(context: context, builder: (context){
-
-                      return LayoutBuilder(
-                          builder: (context,constraints) {
-                            double width = constraints.maxWidth;
-                            double height = constraints.maxHeight;
-                            return customAlertDialog(width: width, height: height, title: "Logout",content: "Do you want to Logout?",actions: [
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return LayoutBuilder(builder: (context, constraints) {
+                          double width = constraints.maxWidth;
+                          double height = constraints.maxHeight;
+                          return CustomAlertDialog(
+                            width: width,
+                            height: height,
+                            title: "Logout",
+                            content: "Do you want to Logout?",
+                            actions: [
                               MaterialButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(),
+                                onPressed: () => Navigator.of(context).pop(),
                                 child: const Text('No',
-                                    style: TextStyle(
-                                        color: Colors.white)),
+                                    style: TextStyle(color: Colors.white)),
                               ),
                               MaterialButton(
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    side: const BorderSide(
-                                        color:Colors.white)),
+                                    side:
+                                        const BorderSide(color: Colors.white)),
                                 onPressed: () {
                                   _logOut();
                                   showToast("Logout successful");
@@ -213,15 +217,15 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                                     style: TextStyle(
                                         color: Color.fromRGBO(11, 38, 59, 1))),
                               ),
-                            ],);
-                          }
-                      );
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.logout,
-                    color: Colors.white,
-                  ),
+                            ],
+                          );
+                        });
+                      });
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
               )
             ],
           ),
@@ -264,14 +268,15 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                     ),
                     textAlign: TextAlign.justify,
                   ),
-
                   if (isLoading == true) ...[
                     const SizedBox(
                       height: 64,
                     ),
                     const LoadingComponent(),
                   ] else ...[
-                    if (pastEvents.isNotEmpty || todaysEvents.isNotEmpty || upcomingEvents.isNotEmpty) ...[
+                    if (pastEvents.isNotEmpty ||
+                        todaysEvents.isNotEmpty ||
+                        upcomingEvents.isNotEmpty) ...[
                       Center(
                         child: AnimatedBuilder(
                           animation: _scaleAnimation,
@@ -282,19 +287,27 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                                 onPressed: () {
                                   scrollController.animateTo(
                                     MediaQuery.of(context).size.height * 0.8,
-                                    duration: const Duration(milliseconds: 1000),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
                                     curve: Curves.decelerate,
                                   );
                                 },
-                                icon:  const Icon(Icons.arrow_downward_rounded,color: Color.fromRGBO(11, 38, 59, 1),),
-                                label: Text("Registered Events",style: GoogleFonts.quicksand(color:const Color.fromRGBO(11, 38, 59, 1)),),
+                                icon: const Icon(
+                                  Icons.arrow_downward_rounded,
+                                  color: Color.fromRGBO(11, 38, 59, 1),
+                                ),
+                                label: Text(
+                                  "Registered Events",
+                                  style: GoogleFonts.quicksand(
+                                      color:
+                                          const Color.fromRGBO(11, 38, 59, 1)),
+                                ),
                               ),
                             );
                           },
                         ),
                       ),
                     ],
-
                     if (pastEvents.isNotEmpty) ...[
                       eventTimeline("Past Events", pastEvents)
                     ],
@@ -316,8 +329,8 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
 
   Widget eventTimeline(String title, List<Map<String, dynamic>> events) {
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(vertical: 10, horizontal: 20), // Adjust padding
+      padding: const EdgeInsets.symmetric(
+          vertical: 10, horizontal: 20), // Adjust padding
       child: Column(
         children: [
           Padding(
@@ -341,16 +354,20 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                 itemCount: events.length,
                 itemBuilder: (ctx, i) => Column(
                   children: [
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     EventCard(
                       event: events[i],
                       onTap: () {
                         Navigator.of(context).push(PageRouteBuilder(
-                          pageBuilder: (context, animation, secondaryAnimation) =>
-                              FadeTransition(
-                                opacity: animation,
-                                child: EventDetailPage(eventId: events[i]["eventId"]),
-                              ),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  FadeTransition(
+                            opacity: animation,
+                            child:
+                                EventDetailPage(eventId: events[i]["eventId"]),
+                          ),
                         ));
                       },
                     ),
@@ -368,6 +385,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
       ),
     );
   }
+
   void _logOut() {
     SharedPreferences.getInstance().then((sp) {
       sp.setBool("LOGGEDINKEY", false);
@@ -379,10 +397,10 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) => const PrimaryScreen()),(route)=>false);
-
+        context,
+        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+        (route) => false);
   }
 }
-
 
 //

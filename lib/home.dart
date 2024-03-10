@@ -1,8 +1,8 @@
-import 'package:anokha/utils/AlertDialog.dart';
+import 'package:anokha/utils/alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Screens/Events/events_page.dart';
-import 'Screens/Profile/profilePage.dart';
+import 'Screens/Profile/profile_page.dart';
 import 'Screens/countdown.dart';
 import 'Utils/navigation_pane.dart';
 
@@ -48,7 +48,7 @@ class HomePageState extends State<HomePage> {
               return LayoutBuilder(builder: (context, constraints) {
                 double width = constraints.maxWidth;
                 double height = constraints.maxHeight;
-                return customAlertDialog(
+                return CustomAlertDialog(
                   width: width,
                   height: height,
                   title: "Exit ?",

@@ -1,9 +1,8 @@
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../utils/toast_message.dart';
-import '../constants.dart';
 
 class CrewPage extends StatefulWidget {
   const CrewPage({super.key});
@@ -13,13 +12,13 @@ class CrewPage extends StatefulWidget {
 }
 
 class _CrewPageState extends State<CrewPage> {
-  bool _isLoading = true;
+  bool isLoading = true;
 
   List<Map<String, dynamic>> crewData = [];
 
   void _getCrewMembers() async {
     setState(() {
-      _isLoading = true;
+      isLoading = true;
     });
 
     try {
@@ -49,7 +48,7 @@ class _CrewPageState extends State<CrewPage> {
           "Something Went Wrong. We're working on it. Please try Again later.");
     } finally {
       setState(() {
-        _isLoading = false;
+        isLoading = false;
       });
     }
   }
@@ -62,7 +61,7 @@ class _CrewPageState extends State<CrewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(crewData);
+    // print(crewData);
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(

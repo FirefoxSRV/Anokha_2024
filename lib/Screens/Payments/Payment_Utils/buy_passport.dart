@@ -1,16 +1,15 @@
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Payments/payment_screen.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/home.dart';
 import 'package:anokha/utils/loading_component.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../constants.dart';
-import '../../../home.dart';
-import '../../Auth/primary_page.dart';
-import '../payment_screen.dart';
 
 class BuyPassportWaitingScreen extends StatefulWidget {
   const BuyPassportWaitingScreen({super.key});
@@ -349,14 +348,5 @@ class _BuyPassportWaitingScreenState extends State<BuyPassportWaitingScreen> {
         context,
         MaterialPageRoute(builder: (context) => const PrimaryScreen()),
         (route) => false);
-  }
-
-  void showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.SNACKBAR,
-        timeInSecForIosWeb: 1,
-        fontSize: 16.0);
   }
 }

@@ -1,14 +1,10 @@
+import 'package:anokha/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../home.dart';
-
-
-void main() => runApp(const PaymentFailed());
-
-class PaymentFailed extends StatelessWidget {
-  const PaymentFailed({super.key});
+class PaymentSuccess extends StatelessWidget {
+  const PaymentSuccess({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +29,19 @@ class PaymentFailed extends StatelessWidget {
                 child: Padding(
                   padding:
                   EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width*0.1,right: MediaQuery.of(context).size.width*0.1,top: MediaQuery.of(context).size.width*0.1,bottom: MediaQuery.of(context).size.width*0.05,),
+                    left: MediaQuery.of(context).size.width*0.1,right: MediaQuery.of(context).size.width*0.1,top: MediaQuery.of(context).size.width*0.1,bottom: MediaQuery.of(context).size.width*0.05,),
                   child: Column(
                     children: [
                       Lottie.asset(
-                        'assets/json/transactionFailed.json',
+                        'assets/json/transactionSuccess.json',
                         width: MediaQuery.of(context).size.width*0.5,
                         height: MediaQuery.of(context).size.width*0.5,
                       ),
                       Text(
-                        "Payment failed",
+                        "Payment Success",
                         style: GoogleFonts.nunito(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Text(
-                        "Please Try again later",
-                        style: GoogleFonts.nunito(
-                          fontSize: 14,
                           color: Colors.black,
                         ),
                       ),
@@ -62,11 +51,14 @@ class PaymentFailed extends StatelessWidget {
                             20),
                         child: MaterialButton(
                           onPressed: () {
+
+                            // should go to event registration page
+
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
                               return const HomePage();
                             }), (route) => false);
-
-                            // Navigator.of(context).pop();
+                            // TODO: route
+                            // nextScreenReplace(context,EventsWorkshopsPage(isFeatured: false,));
                           },
                           shape:
                           RoundedRectangleBorder(

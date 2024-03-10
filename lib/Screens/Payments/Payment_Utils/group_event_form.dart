@@ -1,14 +1,12 @@
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Payments/payment_screen.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../utils/toast_message.dart';
-import '../../../constants.dart';
-import '../../Auth/primary_page.dart';
-import '../payment_screen.dart';
 
 class RegisterToGroupEventPage extends StatefulWidget {
   const RegisterToGroupEventPage({super.key, required this.eventData});
@@ -23,7 +21,7 @@ class RegisterToGroupEventPage extends StatefulWidget {
 class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
   final _formKey = GlobalKey<FormState>();
   late int dropdownValue;
-  bool _isLoading = false;
+  bool isLoading = false;
   TextEditingController teamname = TextEditingController();
   TextEditingController teamleader = TextEditingController();
   TextEditingController teamleaderrole = TextEditingController();
@@ -32,7 +30,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
   final List<TextEditingController> _controller2 = [];
   List<String> mailList = [];
   List<String> roleList = [];
-  late Map<String, dynamic> trans_map;
+  late Map<String, dynamic> transMap;
   var teamSizeList = <int>[];
 
   // to store role of members in order
@@ -341,8 +339,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         fillColor: const Color.fromARGB(255, 242, 240, 240),
                         border: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color:
-                                    Color.fromARGB(255, 255, 255, 255)),
+                                color: Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -380,8 +377,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         fillColor: const Color.fromARGB(255, 242, 240, 240),
                         border: OutlineInputBorder(
                             borderSide: const BorderSide(
-                                color:
-                                    Color.fromARGB(255, 255, 255, 255)),
+                                color: Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -449,8 +445,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Color.fromARGB(
-                                        255, 255, 255, 255)),
+                                    color: Color.fromARGB(255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -498,8 +493,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Color.fromARGB(
-                                        255, 255, 255, 255)),
+                                    color: Color.fromARGB(255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -522,12 +516,14 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 8, 44, 68),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 8, 44, 68),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width * 0.2),
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 16)),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16)),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               //valid flow
@@ -562,7 +558,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
       }
     });
     setState(() {
-      _isLoading = true;
+      isLoading = true;
     });
     String? secretToken = "";
 
@@ -594,16 +590,16 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
           print("[STATUS]: ${response.statusCode}");
         }
         if (response.statusCode == 200) {
-          trans_map = response.data;
-          debugPrint("Trans map sent to payment screen${trans_map.toString()}");
+          transMap = response.data;
+          debugPrint("Trans map sent to payment screen${transMap.toString()}");
           // Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(
-          //   transData: trans_map,
+          //   transData: transMap,
           // )));
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (context) => PaymentScreen(
-                        transData: trans_map,
+                        transData: transMap,
                       )));
         } else if (response.statusCode == 400 &&
             response.data["MESSAGE"] != null) {
@@ -626,7 +622,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
       showToast(err.toString());
     } finally {
       setState(() {
-        _isLoading = false;
+        isLoading = false;
       });
     }
   }

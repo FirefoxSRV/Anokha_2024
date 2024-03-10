@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-
 class Verifying extends StatelessWidget {
-  final txnId;
-
-  const Verifying({super.key,required this.txnId});
+  final String txnId;
+  const Verifying({
+    super.key,
+    required this.txnId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,29 +18,26 @@ class Verifying extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height*0.1,),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
             Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width*0.1),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
               child: Center(
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius
-                        .all(
-                        Radius.circular(
-                            MediaQuery.of(context).size.width*0.08)),
-                    color: Colors.white,),
-
+                    borderRadius: BorderRadius.all(Radius.circular(
+                        MediaQuery.of(context).size.width * 0.08)),
+                    color: Colors.white,
+                  ),
                   child: Padding(
-                    padding:
-                    const EdgeInsets.all(
-                        20.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
                         Lottie.asset(
                           'assets/json/transactionVerifying.json',
-                          width: MediaQuery.of(context).size.width*0.5,
-                          height: MediaQuery.of(context).size.width*0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.width * 0.5,
                         ),
                         Text(
                           "Verifying Payment",
@@ -61,7 +59,7 @@ class Verifying extends StatelessWidget {
                               text: txnId,
                               style: const TextStyle(
                                 color: Color.fromARGB(255, 8, 44, 68),
-                                fontWeight:FontWeight.bold,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             TextSpan(
@@ -74,15 +72,15 @@ class Verifying extends StatelessWidget {
                           ],
                         )),
                         const SizedBox(height: 20),
-
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

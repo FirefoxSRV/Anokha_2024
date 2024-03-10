@@ -1,16 +1,16 @@
 import 'dart:convert';
+import 'package:anokha/Screens/Auth/forgot_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/home.dart';
+import 'package:anokha/utils/helper/helper_function.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../utils/toast_message.dart';
-import '../../constants.dart';
-import '../../home.dart';
-import '../../utils/helper/helper_function.dart';
-import 'forgot_page.dart';
 
 class LoginReg extends StatefulWidget {
   const LoginReg({super.key});
@@ -31,7 +31,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
   bool _isPasswordVisible = false;
 
   late AnimationController _controller;
-  late Animation _gradientAnimation;
+  late Animation gradientAnimation;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
       vsync: this,
     )..repeat(reverse: true);
 
-    _gradientAnimation = ColorTween(
+    gradientAnimation = ColorTween(
       begin: const Color(0xFF082c44),
       end: const Color(0xFF3a5e76),
     ).animate(_controller)
@@ -353,7 +353,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                   "CITY", response.data["studentCollegeCity"].toString());
               sp.setString("TOKEN", response.data["SECRET_TOKEN"].toString());
               sp.setString("STUDENTID", response.data["studentId"].toString());
-              print("STUDENTID ${response.data["studentId"].toString()}");
+              // print("STUDENTID ${response.data["studentId"].toString()}");
               sp.setString(
                   "PASSPORT", response.data["needPassport"].toString());
             });

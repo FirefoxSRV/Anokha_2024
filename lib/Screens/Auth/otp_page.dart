@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'package:anokha/Screens/Auth/login_page.dart';
 import 'package:anokha/Screens/Auth/register_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/helper/helper_function.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import 'package:crypto/crypto.dart';
-
-import '../../utils/toast_message.dart';
-import '../../constants.dart';
-import '../../utils/helper/helper_function.dart';
 
 class RegisterOtpScreen extends StatefulWidget {
   const RegisterOtpScreen({super.key});
@@ -30,7 +29,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
   String? otpToken;
 
   late AnimationController _controller;
-  late Animation _gradientAnimation;
+  late Animation gradientAnimation;
 
   @override
   void initState() {
@@ -39,7 +38,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
       duration: const Duration(seconds: 3),
       vsync: this,
     )..repeat(reverse: true);
-    _gradientAnimation = ColorTween(
+    gradientAnimation = ColorTween(
       begin: const Color(0xFF082c44),
       end: const Color(0xFF3a5e76),
     ).animate(_controller)
@@ -252,12 +251,15 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                                       // );
                                       if (value == "1") {
                                         showToast("OTP verified successfully");
+
                                         Navigator.pop(context);
                                         Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
                                           return const LoginReg();
                                         }));
+
+
                                       } else {
                                         // Navigator.pop(context);
                                         showToast('OTP went wrong');

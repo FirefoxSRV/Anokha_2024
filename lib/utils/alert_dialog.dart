@@ -1,12 +1,8 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class customAlertDialog extends StatelessWidget {
-  const customAlertDialog({
+class CustomAlertDialog extends StatelessWidget {
+  const CustomAlertDialog({
     super.key,
     required this.width,
     required this.height,

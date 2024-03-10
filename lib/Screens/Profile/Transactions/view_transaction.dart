@@ -1,15 +1,13 @@
-
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Payments/verify_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/loading_component.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../utils/toast_message.dart';
-import '../../../constants.dart';
-import '../../../utils/loading_component.dart';
-import '../../Auth/primary_page.dart';
-import '../../Payments/verify_page.dart';
 
 class ViewTransactions extends StatefulWidget {
   const ViewTransactions({super.key});
@@ -122,9 +120,10 @@ class _ViewTransactionsState extends State<ViewTransactions> {
                 ? InkWell(
                     onTap: () {
                       Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => VerifyTransaction(
-                          txid: _transactionData[index]['txnId'])));
-
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VerifyTransaction(
+                                  txid: _transactionData[index]['txnId'])));
                     },
                     child: Chip(
                       avatar: const Icon(
@@ -313,6 +312,8 @@ class _ViewTransactionsState extends State<ViewTransactions> {
       sp.setString("TOKEN", "");
     });
     Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) =>  const PrimaryScreen()),(route)=>false);
+        context,
+        MaterialPageRoute(builder: (context) => const PrimaryScreen()),
+        (route) => false);
   }
 }

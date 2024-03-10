@@ -1,16 +1,13 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
+import 'package:anokha/Screens/Auth/otp_page.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:anokha/utils/toast_message.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
-import '../../utils/helper/helper_function.dart';
-import 'otp_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

@@ -1,3 +1,10 @@
+import 'package:anokha/Screens/Auth/login_page.dart';
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Payments/Payment_Utils/group_event_form.dart';
+import 'package:anokha/Screens/Payments/payment_screen.dart';
+import 'package:anokha/constants.dart';
+import 'package:anokha/utils/loading_component.dart';
+import 'package:anokha/utils/toast_message.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -5,14 +12,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../utils/toast_message.dart';
-import '../../constants.dart';
-import '../../utils/loading_component.dart';
-import '../Auth/login_page.dart';
-import '../Auth/primary_page.dart';
-import '../Payments/Payment_Utils/group_event_form.dart';
-import '../payments/payment_screen.dart';
 
 class EventDetailPage extends StatefulWidget {
   final int eventId;

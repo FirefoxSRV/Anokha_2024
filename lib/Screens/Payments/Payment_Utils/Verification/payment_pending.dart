@@ -1,12 +1,8 @@
 
+import 'package:anokha/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../../../home.dart';
-
-
-void main() => runApp(const PaymentPending());
 
 class PaymentPending extends StatelessWidget {
   const PaymentPending({super.key});
