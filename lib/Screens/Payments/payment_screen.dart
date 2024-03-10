@@ -76,7 +76,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
           onPageStarted: (url) {
             if (url.startsWith("upi://")) {
               final uri = Uri.parse(url);
-              launchUrl(uri).onError((error, stackTrace) {
+              launchUrl(
+                uri,
+              ).onError((error, stackTrace) {
                 debugPrint("Error: $error");
                 showToast("Please try a different payment method.");
                 return false;
