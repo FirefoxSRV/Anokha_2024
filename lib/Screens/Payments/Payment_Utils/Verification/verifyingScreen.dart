@@ -12,7 +12,7 @@ class Verifying extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 8, 44, 68),
+        backgroundColor: const Color.fromARGB(255, 8, 44, 68),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +49,7 @@ class Verifying extends StatelessWidget {
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Text.rich(TextSpan(
                           text: "Your Transaction ID is ",
                           style: GoogleFonts.nunito(
@@ -59,7 +59,7 @@ class Verifying extends StatelessWidget {
                           children: <TextSpan>[
                             TextSpan(
                               text: txnId,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color.fromARGB(255, 8, 44, 68),
                                 fontWeight:FontWeight.bold,
                               ),
@@ -73,7 +73,7 @@ class Verifying extends StatelessWidget {
                             ),
                           ],
                         )),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
 
                       ],
                     ),

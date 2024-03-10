@@ -3,10 +3,10 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final int currentIndex;
   final void Function(int) onTap;

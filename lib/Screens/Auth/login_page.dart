@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:anokha/Screens/Auth/register_page.dart';
-import 'package:anokha/Screens/Events/events_page.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -83,7 +82,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
             Navigator.pop(context);
           },
           backgroundColor: Colors.transparent,
-          child: Icon(Icons.arrow_back,color: Colors.white,),
+          child: const Icon(Icons.arrow_back,color: Colors.white,),
         ),
         body: _isLoading
             ? Center(

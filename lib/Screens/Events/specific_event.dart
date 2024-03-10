@@ -16,7 +16,7 @@ import '../payments/payment_screen.dart';
 
 class EventDetailPage extends StatefulWidget {
   final int eventId;
-  const EventDetailPage({Key? key, required this.eventId}) : super(key: key);
+  const EventDetailPage({super.key, required this.eventId});
 
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
@@ -114,7 +114,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
     }
 
     try {
-      final dio = await Dio();
+      final dio = Dio();
 
       final response = await dio.post(Constants.toggleStarredEvents,
           options: Options(
@@ -261,8 +261,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               child: FloatingActionButton.extended(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
-                                backgroundColor: Color.fromRGBO(11, 38, 59, 1),
-                                extendedPadding: EdgeInsetsDirectional.all(16),
+                                backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
+                                extendedPadding: const EdgeInsetsDirectional.all(16),
                                 onPressed: () {
                                   _viewRegistration().then((res) {
                                     if (res == "1") {
@@ -298,7 +298,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                     "Registration Details",
                                                     style:
                                                         GoogleFonts.quicksand(
-                                                      textStyle: TextStyle(
+                                                      textStyle: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 24,
@@ -478,7 +478,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                           .toString(),
                                                       style: GoogleFonts
                                                           .sourceCodePro(
-                                                        textStyle: TextStyle(
+                                                        textStyle: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 16,
@@ -531,7 +531,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                               style: GoogleFonts
                                                                   .sourceCodePro(
                                                                 textStyle:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -547,7 +547,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                               style: GoogleFonts
                                                                   .sourceCodePro(
                                                                 textStyle:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontSize: 12,
                                                                 ),
                                                               ),
@@ -560,7 +560,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                                               style: GoogleFonts
                                                                   .sourceCodePro(
                                                                 textStyle:
-                                                                    TextStyle(
+                                                                    const TextStyle(
                                                                   fontSize: 12,
                                                                 ),
                                                               ),
@@ -585,7 +585,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   style: GoogleFonts.quicksand(
                                       color: Colors.white),
                                 ),
-                                icon: Icon(Icons.event_available,
+                                icon: const Icon(Icons.event_available,
                                     color: Colors.white),
                               ),
                             )
@@ -594,8 +594,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               child: FloatingActionButton.extended(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16)),
-                                backgroundColor: Color.fromRGBO(11, 38, 59, 1),
-                                extendedPadding: EdgeInsetsDirectional.all(16),
+                                backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
+                                extendedPadding: const EdgeInsetsDirectional.all(16),
                                 onPressed: () {
                                   if (eventDetails["isGroup"] == "0") {
                                     // showToast("Individual event");
@@ -662,7 +662,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   style: GoogleFonts.quicksand(
                                       color: Colors.white),
                                 ),
-                                icon: Icon(Icons.event_available,
+                                icon: const Icon(Icons.event_available,
                                     color: Colors.white),
                               ),
                             ),
@@ -717,7 +717,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(50)),
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Center(
                       child: Text(
                         event['eventName'],
@@ -741,7 +741,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     padding: const EdgeInsets.all(10),
                     child: Center(
                       child: Text(
-                        "₹ ${event["eventPrice"].toString()}",
+                        "₹ ${(event["eventPrice"]*1.18).ceil()}",
                         style: GoogleFonts.quicksand(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -761,66 +761,66 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                       Padding(
                           padding:
-                              EdgeInsets.only(left: 20, right: 20, top: 10),
+                              const EdgeInsets.only(left: 20, right: 20, top: 10),
                           child: buildDetailTile(
                               Icons.calendar_today,
                               "${formatEventDate(event['eventDate'].substring(0, 10))} 2024",
                               "Date")),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.grey,
                         indent: 15,
                         endIndent: 15,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
                       Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20),
                           child: buildDetailTile(Icons.access_time,
                               "${event['eventTime']}", "Time")),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
-                      Divider(color: Colors.grey, indent: 15, endIndent: 15),
-                      SizedBox(
+                      const Divider(color: Colors.grey, indent: 15, endIndent: 15),
+                      const SizedBox(
                         height: 2,
                       ),
                       Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20),
                           child: buildDetailTile(
                               Icons.place, "${event['eventVenue']}", "Venue")),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
-                      Divider(color: Colors.grey, indent: 15, endIndent: 15),
+                      const Divider(color: Colors.grey, indent: 15, endIndent: 15),
                       Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 20, right: 20),
                           child: buildDetailTile(
                               Icons.design_services_rounded, "${event['isGroup'] == "1" ? "Group" : "Individual"} ${event['isWorkshop'] == "1" ? "workshop" : "event"}", "Type")),
-                      SizedBox(
+                      const SizedBox(
                         height: 2,
                       ),
                       event['isGroup'] == "1"
                           ? Column(
                               children: [
-                                Divider(
+                                const Divider(
                                   color: Colors.grey,
                                   indent: 15,
                                   endIndent: 15,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 2,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       left: 20, right: 20, bottom: 10),
                                   child: buildDetailTile(
                                       Icons.person,
@@ -829,16 +829,16 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                 ),
                               ],
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               height: 10,
                             ),
-                      SizedBox(
+                      const SizedBox(
                         height: 4,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 buildTags(event['tags']),
@@ -849,7 +849,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -880,14 +880,14 @@ class _EventDetailPageState extends State<EventDetailPage> {
       children: [
         Row(
           children: [
-            Icon(icon, color: Color.fromRGBO(11, 38, 59, 1)),
-            SizedBox(
+            Icon(icon, color: const Color.fromRGBO(11, 38, 59, 1)),
+            const SizedBox(
               width: 5,
             ),
             Text(
               title,
               style:
-                  GoogleFonts.quicksand(color: Color.fromRGBO(11, 38, 59, 1)),
+                  GoogleFonts.quicksand(color: const Color.fromRGBO(11, 38, 59, 1)),
             )
           ],
         ),
@@ -904,7 +904,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       children: tags.map((tag) {
         return Chip(
           avatar: CircleAvatar(
-            backgroundColor: Color.fromRGBO(11, 38, 59, 1),
+            backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Padding(
@@ -919,7 +919,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           label: Text(tag['tagName']),
           backgroundColor: Colors.white,
           padding: const EdgeInsets.all(6),
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             color: Color.fromRGBO(11, 38, 59, 1),
           ),
         );
@@ -957,7 +957,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           Constants.registerEvent,
           options: Options(
             headers: {
-              "Authorization": "Bearer ${secretToken}",
+              "Authorization": "Bearer $secretToken",
             },
             validateStatus: (status) => status! < 1000,
           ),
@@ -995,7 +995,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           showToast("Something went wrong please wait");
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => LoginReg()),
+              MaterialPageRoute(builder: (context) => const LoginReg()),
               (route) => false);
         }
       });

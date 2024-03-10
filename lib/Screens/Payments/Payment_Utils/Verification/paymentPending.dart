@@ -15,7 +15,7 @@ class PaymentPending extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 8, 44, 68),
+        backgroundColor: const Color.fromARGB(255, 8, 44, 68),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class PaymentPending extends StatelessWidget {
 
                             // should go to event registration page
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
-                              return HomePage();
+                              return const HomePage();
                             }), (route) => false);
 
                           },
@@ -83,7 +83,7 @@ class PaymentPending extends StatelessWidget {
                               .symmetric(
                               horizontal: 12.0,
                               vertical: 8.0),
-                          color: Color.fromARGB(
+                          color: const Color.fromARGB(
                               255, 8, 44, 68),
                           child: Text(
                             "Back to home",
@@ -103,7 +103,7 @@ class PaymentPending extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
           ],
         ),
       ),

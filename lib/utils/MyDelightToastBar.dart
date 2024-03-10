@@ -10,17 +10,17 @@ class MyDelightToastBar {
   void success(BuildContext context, String? s) {
     DelightToastBar(
       autoDismiss: true,
-      snackbarDuration: Duration(seconds: 2),
+      snackbarDuration: const Duration(seconds: 2),
       builder: (context) => ToastCard(
         color: Colors.green,
-        leading: Icon(
+        leading: const Icon(
           Icons.check_circle,
           //add success color,
           color: Colors.white,
         ),
         title: Text(
           s ?? "Success",
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 14,
             color: Colors.white,
@@ -35,14 +35,14 @@ class MyDelightToastBar {
       autoDismiss: true,
       builder: (context) => ToastCard(
         color: Colors.red,
-        leading: Icon(
+        leading: const Icon(
           Icons.error,
           //add success color,
           color: Colors.white,
         ),
         title: Text(
           s ?? "Error",
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 14,
             color: Colors.white,
@@ -55,7 +55,7 @@ class MyDelightToastBar {
   void warning(BuildContext context, String s) {
     DelightToastBar(
       autoDismiss: true,
-      builder: (context) => ToastCard(
+      builder: (context) => const ToastCard(
         color: Colors.yellow,
         leading: Icon(
           Icons.warning,

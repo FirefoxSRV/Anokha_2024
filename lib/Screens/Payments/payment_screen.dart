@@ -1,5 +1,7 @@
 import 'dart:typed_data';
+import 'package:anokha/utils/MyDelightToastBar.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../Payments/verify_page.dart';
@@ -58,18 +60,39 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
       )
       ..setNavigationDelegate(
-        NavigationDelegate(onPageStarted: (url) {
-          debugPrint(url);
-          if (url == payUData["surl"] || url == payUData["furl"]) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => VerifyTransaction(
-                  txid: payUData["txnid"],
+        NavigationDelegate(
+          onNavigationRequest: (request) async {
+            if (request.url.startsWith("upi://")) {
+              if (await canLaunchUrl(Uri.parse(request.url))) {
+                return NavigationDecision.navigate;
+              } else {
+                showToast("Payment Mode not supported. Try another method");
+                return NavigationDecision.prevent;
+              }
+            }
+
+            return NavigationDecision.navigate;
+          },
+          onPageStarted: (url) {
+            if (url.startsWith("upi://")) {
+              final uri = Uri.parse(url);
+              launchUrl(uri).onError((error, stackTrace) {
+                debugPrint("Error: $error");
+                showToast("Please try a different payment method.");
+                return false;
+              });
+            }
+            if (url == payUData["surl"] || url == payUData["furl"]) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => VerifyTransaction(
+                    txid: payUData["txnid"],
+                  ),
                 ),
-              ),
-            );
-          }
-        }),
+              );
+            }
+          },
+        ),
       );
   }
 

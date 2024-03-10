@@ -191,7 +191,7 @@ class _ViewTransactionsState extends State<ViewTransactions> {
                   ),
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -201,9 +201,9 @@ class _ViewTransactionsState extends State<ViewTransactions> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(43, 30, 56, 1),
+        backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -215,7 +215,7 @@ class _ViewTransactionsState extends State<ViewTransactions> {
         title: Text(
           "Transaction History",
           style: GoogleFonts.habibi(
-            textStyle: TextStyle(color: Colors.white),
+            textStyle: const TextStyle(color: Colors.white),
           ),
         ),
       ),

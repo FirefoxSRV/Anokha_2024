@@ -195,7 +195,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                               MaterialButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(),
-                                child: Text('No',
+                                child: const Text('No',
                                     style: TextStyle(
                                         color: Colors.white)),
                               ),
@@ -203,13 +203,13 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    side: BorderSide(
+                                    side: const BorderSide(
                                         color:Colors.white)),
                                 onPressed: () {
                                   _logOut();
                                   showToast("Logout successful");
                                 },
-                                child: Text('Yes',
+                                child: const Text('Yes',
                                     style: TextStyle(
                                         color: Color.fromRGBO(11, 38, 59, 1))),
                               ),
@@ -269,9 +269,9 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                     const SizedBox(
                       height: 64,
                     ),
-                    LoadingComponent(),
+                    const LoadingComponent(),
                   ] else ...[
-                    if (pastEvents.length > 0 || todaysEvents.length > 0 || upcomingEvents.length > 0) ...[
+                    if (pastEvents.isNotEmpty || todaysEvents.isNotEmpty || upcomingEvents.isNotEmpty) ...[
                       Center(
                         child: AnimatedBuilder(
                           animation: _scaleAnimation,
@@ -286,8 +286,8 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                                     curve: Curves.decelerate,
                                   );
                                 },
-                                icon:  Icon(Icons.arrow_downward_rounded,color: Color.fromRGBO(11, 38, 59, 1),),
-                                label: Text("Registered Events",style: GoogleFonts.quicksand(color:Color.fromRGBO(11, 38, 59, 1)),),
+                                icon:  const Icon(Icons.arrow_downward_rounded,color: Color.fromRGBO(11, 38, 59, 1),),
+                                label: Text("Registered Events",style: GoogleFonts.quicksand(color:const Color.fromRGBO(11, 38, 59, 1)),),
                               ),
                             );
                           },
@@ -295,13 +295,13 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                       ),
                     ],
 
-                    if (pastEvents.length > 0) ...[
+                    if (pastEvents.isNotEmpty) ...[
                       eventTimeline("Past Events", pastEvents)
                     ],
-                    if (todaysEvents.length > 0) ...[
+                    if (todaysEvents.isNotEmpty) ...[
                       eventTimeline("Today's Events", todaysEvents)
                     ],
-                    if (upcomingEvents.length > 0) ...[
+                    if (upcomingEvents.isNotEmpty) ...[
                       eventTimeline("Upcoming Events", upcomingEvents)
                     ],
                   ],
@@ -317,7 +317,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
   Widget eventTimeline(String title, List<Map<String, dynamic>> events) {
     return Padding(
       padding:
-      EdgeInsets.symmetric(vertical: 10, horizontal: 20), // Adjust padding
+      const EdgeInsets.symmetric(vertical: 10, horizontal: 20), // Adjust padding
       child: Column(
         children: [
           Padding(
@@ -341,7 +341,7 @@ class _CountdownPageState extends State<Countdown> with TickerProviderStateMixin
                 itemCount: events.length,
                 itemBuilder: (ctx, i) => Column(
                   children: [
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     EventCard(
                       event: events[i],
                       onTap: () {

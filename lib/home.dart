@@ -73,14 +73,14 @@ class HomePageState extends State<HomePage> {
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: Colors.white)),
+                          side: const BorderSide(color: Colors.white)),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       child: Text(
                         "Cancel",
                         style: GoogleFonts.quicksand(
-                            color: Color.fromRGBO(11, 38, 59, 1)),
+                            color: const Color.fromRGBO(11, 38, 59, 1)),
                       ),
                     )
                   ],

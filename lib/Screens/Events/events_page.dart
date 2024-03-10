@@ -4,7 +4,6 @@ import 'package:anokha/Screens/Events/specific_event.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/MyDelightToastBar.dart';
@@ -279,9 +278,9 @@ class _EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
         floatingActionButton: FloatingActionButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Colors.white)
+            side: const BorderSide(color: Colors.white)
           ),
-          backgroundColor: Color.fromRGBO(15, 21, 39, 1),
+          backgroundColor: const Color.fromRGBO(15, 21, 39, 1),
           onPressed: () {
             showModalBottomSheet(
               shape: const RoundedRectangleBorder(
@@ -439,8 +438,7 @@ class EventCard extends StatelessWidget {
   final Map<String, dynamic> event;
   final VoidCallback onTap;
 
-  const EventCard({Key? key, required this.event, required this.onTap})
-      : super(key: key);
+  const EventCard({super.key, required this.event, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -566,7 +564,7 @@ class EventCard extends StatelessWidget {
                                     size: 12), // Smaller icon
                                 const SizedBox(width: 4),
                                 Text(
-                                  '${event["eventPrice"]}',
+                                  '${(event["eventPrice"]*1.18).ceil()}',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -653,7 +651,7 @@ class FilterChipDemo extends StatefulWidget {
   List<Map<String, dynamic>> selectedTags;
 
   FilterChipDemo(
-      {required this.isStarred,required this.isWorkshop,
+      {super.key, required this.isStarred,required this.isWorkshop,
         required this.isEvent,
         required this.isTechnical,
         required this.isNonTechnical,

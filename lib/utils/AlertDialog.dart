@@ -2,12 +2,11 @@
 
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class customAlertDialog extends StatelessWidget {
-  customAlertDialog({
+  const customAlertDialog({
     super.key,
     required this.width,
     required this.height,
@@ -24,10 +23,10 @@ class customAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Color.fromRGBO(11, 38, 59, 1),
+      backgroundColor: const Color.fromRGBO(11, 38, 59, 1),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
-          side: BorderSide(color: Colors.white)
+          side: const BorderSide(color: Colors.white)
       ),
       title: Center(
         child: Text(

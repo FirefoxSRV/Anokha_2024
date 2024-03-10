@@ -73,15 +73,19 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
     teamname.dispose();
     teamleader.dispose();
     teamleaderrole.dispose();
-    _controller1.forEach((controller) => controller.dispose());
-    _controller2.forEach((controller) => controller.dispose());
+    for (var controller in _controller1) {
+      controller.dispose();
+    }
+    for (var controller in _controller2) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 235, 248),
+      backgroundColor: const Color.fromARGB(255, 221, 235, 248),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -112,10 +116,10 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         style: GoogleFonts.quicksand(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 8, 44, 68),
+                          color: const Color.fromARGB(255, 8, 44, 68),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
@@ -123,12 +127,12 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         style: GoogleFonts.quicksand(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 8, 44, 68),
+                          color: const Color.fromARGB(255, 8, 44, 68),
                         ),
                       ),
                       if (widget.eventData["minTeamSize"] ==
                           widget.eventData["maxTeamSize"])
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                       if (widget.eventData["minTeamSize"] ==
@@ -138,7 +142,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           style: GoogleFonts.quicksand(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 8, 44, 68),
+                            color: const Color.fromARGB(255, 8, 44, 68),
                           ),
                         ),
                       if (widget.eventData["minTeamSize"] ==
@@ -148,7 +152,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           style: GoogleFonts.quicksand(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 8, 44, 68),
+                            color: const Color.fromARGB(255, 8, 44, 68),
                           ),
                         ),
                       if (widget.eventData["minTeamSize"] ==
@@ -158,7 +162,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           style: GoogleFonts.quicksand(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 8, 44, 68),
+                            color: const Color.fromARGB(255, 8, 44, 68),
                           ),
                         ),
                     ],
@@ -192,16 +196,16 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                         return null;
                       },
                       style:
-                          TextStyle(color: const Color.fromARGB(255, 5, 5, 5)),
+                          const TextStyle(color: Color.fromARGB(255, 5, 5, 5)),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         filled: true,
                         fillColor: const Color.fromARGB(255, 254, 254, 255),
                         enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color: Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
@@ -254,7 +258,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           fillColor: const Color.fromARGB(255, 251, 251, 251),
                           filled: true,
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                   color: Color.fromARGB(255, 255, 255, 255)),
                               borderRadius: BorderRadius.circular(20)),
                           enabledBorder: OutlineInputBorder(
@@ -334,11 +338,11 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                       style: TextStyle(color: Colors.grey.shade900),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color.fromARGB(255, 242, 240, 240),
+                        fillColor: const Color.fromARGB(255, 242, 240, 240),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color:
-                                    const Color.fromARGB(255, 255, 255, 255)),
+                                    Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -373,11 +377,11 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                       style: TextStyle(color: Colors.grey.shade900),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color.fromARGB(255, 242, 240, 240),
+                        fillColor: const Color.fromARGB(255, 242, 240, 240),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 color:
-                                    const Color.fromARGB(255, 255, 255, 255)),
+                                    Color.fromARGB(255, 255, 255, 255)),
                             borderRadius: BorderRadius.circular(20)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -396,13 +400,13 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                       ),
                       Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                               child: Divider(
                             thickness: 0.5,
                             color: Colors.black54,
                           )),
                           Expanded(child: Text("   Team Member ${i + 1}")),
-                          Expanded(
+                          const Expanded(
                               child: Divider(
                             thickness: 0.5,
                             color: Colors.black54,
@@ -434,18 +438,18 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           },
                           controller: _controller1[i],
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 5, 5, 5)),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 5, 5, 5)),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color.fromARGB(255, 254, 254, 255),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Color.fromARGB(255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: const Color.fromARGB(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(
                                         255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
@@ -483,18 +487,18 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           },
                           controller: _controller2[i],
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 5, 5, 5)),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 5, 5, 5)),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color.fromARGB(255, 254, 254, 255),
                             border: OutlineInputBorder(
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Color.fromARGB(255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: const Color.fromARGB(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(
                                         255, 255, 255, 255)),
                                 borderRadius: BorderRadius.circular(20)),
                             focusedBorder: OutlineInputBorder(
@@ -518,12 +522,12 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 8, 44, 68),
+                              backgroundColor: const Color.fromARGB(255, 8, 44, 68),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width * 0.2),
                               ),
-                              padding: EdgeInsets.symmetric(vertical: 16)),
+                              padding: const EdgeInsets.symmetric(vertical: 16)),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               //valid flow
@@ -572,7 +576,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
           Constants.registerEvent,
           options: Options(
             headers: {
-              "Authorization": "Bearer ${secretToken}",
+              "Authorization": "Bearer $secretToken",
             },
             validateStatus: (status) => status! < 1000,
           ),

@@ -64,7 +64,7 @@ class _VerifyTransactionState extends State<VerifyTransaction> {
           Constants.verifyTransaction,
           options: Options(
             headers: {
-              "Authorization": "Bearer ${secretToken}",
+              "Authorization": "Bearer $secretToken",
             },
             validateStatus: (status) => status! < 1000,
           ),

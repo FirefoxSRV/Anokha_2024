@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +15,7 @@ import '../Payments/Payment_Utils/buy_passport.dart';
 import 'Transactions/viewTransaction.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key}) : super(key: key);
+  const UserProfile({super.key});
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -107,7 +106,7 @@ class _UserProfileState extends State<UserProfile> {
                       backgroundColor: Colors.white,
                       child: ClipOval(
                         child: Image.network(
-                            "https://www.gravatar.com/avatar/${email}.jpg?s=200&d=robohash"),
+                            "https://www.gravatar.com/avatar/$email.jpg?s=200&d=robohash"),
                       ),
                     ),
                     Padding(
@@ -145,7 +144,7 @@ class _UserProfileState extends State<UserProfile> {
                       if(accountStatus=="1")...[
                       InkWell(
                         onTap:(){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => BuyPassportWaitingScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const BuyPassportWaitingScreen()));
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -174,7 +173,7 @@ class _UserProfileState extends State<UserProfile> {
                                 ),
                                 const BoxShadow(
                                   color: Colors.white,
-                                  offset: const Offset(
+                                  offset: Offset(
                                       -1, -1),
                                   blurRadius: 15,
                                   spreadRadius: 1,
@@ -937,7 +936,7 @@ class _UserProfileState extends State<UserProfile> {
                                                           .symmetric(
                                                           horizontal: 24.0,
                                                           vertical: 16.0),
-                                                      color: Color.fromARGB(
+                                                      color: const Color.fromARGB(
                                                           255, 8, 44, 68),
                                                       child: Text(
                                                         "Update",
@@ -970,7 +969,7 @@ class _UserProfileState extends State<UserProfile> {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(7))),
                                       child: Padding(
-                                        padding: EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(5),
                                         child: Icon(
                                           Icons.edit_note,
                                           color: Colors.blueAccent,
@@ -1054,7 +1053,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       const BorderRadius.all(
                                                           Radius.circular(7))),
                                               child: Padding(
-                                                padding: EdgeInsets.all(3),
+                                                padding: const EdgeInsets.all(3),
                                                 child: Icon(
                                                   Icons
                                                       .currency_exchange_rounded,
@@ -1079,9 +1078,9 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Padding(
+                                        const Padding(
                                           padding:
-                                              const EdgeInsets.only(right: 20),
+                                              EdgeInsets.only(right: 20),
                                           child: Icon(
                                               Icons.arrow_forward_ios_sharp,
                                               color: Colors.black,
@@ -1160,7 +1159,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         ),
                                                         const BoxShadow(
                                                           color: Colors.white,
-                                                          offset: const Offset(
+                                                          offset: Offset(
                                                               -1, -1),
                                                           blurRadius: 15,
                                                           spreadRadius: 1,
@@ -1220,7 +1219,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         ),
                                                         const BoxShadow(
                                                           color: Colors.white,
-                                                          offset: const Offset(
+                                                          offset: Offset(
                                                               -1, -1),
                                                           blurRadius: 15,
                                                           spreadRadius: 1,
@@ -1282,7 +1281,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   ),
                                                 ),
 
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 30,
                                                 )
 
@@ -1292,7 +1291,7 @@ class _UserProfileState extends State<UserProfile> {
                                           );
                                         });
                                   },
-                                  child: Container(
+                                  child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
                                         0.0575,
                                     child: Row(
@@ -1307,7 +1306,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       const BorderRadius.all(
                                                           Radius.circular(7))),
                                               child: Padding(
-                                                padding: EdgeInsets.all(3),
+                                                padding: const EdgeInsets.all(3),
                                                 child: Icon(
                                                   Icons.qr_code,
                                                   color: Colors.black,
@@ -1331,9 +1330,9 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Padding(
+                                        const Padding(
                                           padding:
-                                              const EdgeInsets.only(right: 20),
+                                              EdgeInsets.only(right: 20),
                                           child: Icon(
                                               Icons.arrow_forward_ios_sharp,
                                               color: Colors.black,
@@ -1363,7 +1362,7 @@ class _UserProfileState extends State<UserProfile> {
                                             MaterialButton(
                                               onPressed: () =>
                                                   Navigator.of(context).pop(),
-                                              child: Text('No',
+                                              child: const Text('No',
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                             ),
@@ -1371,13 +1370,13 @@ class _UserProfileState extends State<UserProfile> {
                                               color: Colors.white,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(20),
-                                                  side: BorderSide(
+                                                  side: const BorderSide(
                                                       color:Colors.white)),
                                               onPressed: () {
                                                 _logOut();
                                                 showToast("Logout successful");
                                               },
-                                              child: Text('Yes',
+                                              child: const Text('Yes',
                                                   style: TextStyle(
                                                       color: Color.fromRGBO(11, 38, 59, 1))),
                                             ),
@@ -1387,7 +1386,7 @@ class _UserProfileState extends State<UserProfile> {
                                   });
 
                                 },
-                                child: Container(
+                                child: SizedBox(
                                   height: MediaQuery.of(context).size.height *
                                       0.0575,
                                   child: Row(
@@ -1402,7 +1401,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     const BorderRadius.all(
                                                         Radius.circular(7))),
                                             child: Padding(
-                                              padding: EdgeInsets.all(3),
+                                              padding: const EdgeInsets.all(3),
                                               child: Icon(
                                                 Icons.logout_rounded,
                                                 color: Colors.red,
@@ -1553,7 +1552,7 @@ class _UserProfileState extends State<UserProfile> {
           Constants.editProfile,
           options: Options(
             headers: {
-              "Authorization": "Bearer ${secretToken}",
+              "Authorization": "Bearer $secretToken",
             },
             validateStatus: (status) => status! < 1000,
           ),

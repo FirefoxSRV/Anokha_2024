@@ -77,10 +77,10 @@ class _CrewPageState extends State<CrewPage> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(43, 30, 56, 1),
+          backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
             ),
@@ -108,8 +108,7 @@ class Crew extends StatelessWidget {
   final Map<String, dynamic> crew;
   final VoidCallback onTap;
 
-  const Crew({Key? key, required this.crew, required this.onTap})
-      : super(key: key);
+  const Crew({super.key, required this.crew, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class Crew extends StatelessWidget {
             crew: crew['teamMembers'][i],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 36,
         )
       ],
