@@ -1,10 +1,9 @@
+import 'package:anokha/Screens/Auth/login_page.dart';
+import 'package:anokha/Screens/Auth/primary_page.dart';
+import 'package:anokha/Screens/Events/events_page.dart';
+import 'package:anokha/home.dart';
 import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
-
-import 'Screens/Auth/login_page.dart';
-import 'Screens/Auth/primary_page.dart';
-import 'Screens/Events/events_page.dart';
-import 'home.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,10 +1,10 @@
+import 'package:anokha/Screens/Events/events_page.dart';
+import 'package:anokha/Screens/Profile/profile_page.dart';
+import 'package:anokha/Screens/countdown.dart';
+import 'package:anokha/Utils/navigation_pane.dart';
 import 'package:anokha/utils/alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Screens/Events/events_page.dart';
-import 'Screens/Profile/profile_page.dart';
-import 'Screens/countdown.dart';
-import 'Utils/navigation_pane.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
