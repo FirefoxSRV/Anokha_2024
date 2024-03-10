@@ -32,7 +32,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_markdown: ^0.6.20
-  flutter_secure_storage: ^9.0.0
   fluttertoast: ^8.2.4
   google_fonts: ^6.2.0
   google_nav_bar: ^5.0.6
@@ -41,8 +40,6 @@ dependencies:
   pinput: ^4.0.0
   qr_flutter: ^4.1.0
   shared_preferences: ^2.2.2
-  sqflite: ^2.3.2
-  sqflite_common_ffi: ^2.3.2+1
   url_launcher: ^6.2.5
   webview_flutter: ^4.7.0
 
