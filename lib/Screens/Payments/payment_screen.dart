@@ -26,7 +26,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     super.initState();
     setState(() {
       payUData = {
-        "key": "gtKFFx",
+        "key": "ypfBaJ",
         "txnid": widget.transData["txnid"],
         "amount": widget.transData["amount"],
         "productinfo": widget.transData["productinfo"],
@@ -42,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(
         Uri.parse(
-          "https://test.payu.in/_payment",
+          "https://secure.payu.in/_payment",
         ),
         method: LoadRequestMethod.post,
         headers: {
@@ -59,6 +59,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       )
       ..setNavigationDelegate(
         NavigationDelegate(onPageStarted: (url) {
+          debugPrint(url);
           if (url == payUData["surl"] || url == payUData["furl"]) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
@@ -76,6 +77,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Make Payment"),
         centerTitle: true,
       ),
