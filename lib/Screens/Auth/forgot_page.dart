@@ -68,28 +68,32 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
+            forceMaterialTransparency: false,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
                   SizedBox(height: maxHeight * 0.07),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                  Text(
+                    "Forgot password",
+                    style: GoogleFonts.habibi(
+                      textStyle: const TextStyle(
+                        fontSize: 32,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500
                       ),
-                      Text('Forgot Password',
-                          style: GoogleFonts.quicksand(
-                              color: Colors.white, fontSize: 20)),
-                    ],
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: maxHeight * 0.07),
                   TextFormField(
@@ -245,7 +249,7 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
                         ? _resetPassword
                         : _handleEmailSubmit,
                     child: Text(
-                      _showPasswordFields ? 'Reset Password' : 'Submit OTP',
+                      _showPasswordFields ? 'Reset Password' : 'Get OTP',
                       style: GoogleFonts.quicksand(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

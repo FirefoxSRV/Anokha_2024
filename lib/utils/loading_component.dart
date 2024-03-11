@@ -11,7 +11,9 @@ class LoadingComponent extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(),
+          CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ],
       ),
     );

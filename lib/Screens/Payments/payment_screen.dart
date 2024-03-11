@@ -62,20 +62,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (request) async {
-            // if (request.url.startsWith("upi://")) {
-            //   if (await canLaunchUrl(Uri.parse(request.url))) {
-            //     return NavigationDecision.navigate;
-            //   } else {
-            //     showToast("Payment Mode not supported. Try another method");
-            //     return NavigationDecision.prevent;
-            //   }
-            // }
-
-            return NavigationDecision.navigate;
-          },
-          onPageStarted: (url) {
-            if (url.startsWith("upi://")) {
-              final uri = Uri.parse(url);
+            debugPrint("HERE ${request.url}");
+            if (request.url.startsWith("upi://")) {
+              final uri = Uri.parse(request.url);
               launchUrl(
                 uri,
               ).onError((error, stackTrace) {
@@ -83,7 +72,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 showToast("Please try a different payment method.");
                 return false;
               });
+              return NavigationDecision.prevent;
             }
+
+            return NavigationDecision.navigate;
+          },
+          onPageStarted: (url) {
+            // if (url.startsWith("upi://")) {
+            //   final uri = Uri.parse(url);
+            //   launchUrl(
+            //     uri,
+            //   ).onError((error, stackTrace) {
+            //     debugPrint("Error: $error");
+            //     showToast("Please try a different payment method.");
+            //     return false;
+            //   });
+            // }
             if (url == payUData["surl"] || url == payUData["furl"]) {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
