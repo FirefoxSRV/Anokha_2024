@@ -31,6 +31,8 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
   late FocusNode _passwordFocusNode;
   bool _isPasswordVisible = false;
 
+  bool _isFromCampus = false;
+
   late AnimationController _controller;
   late Animation gradientAnimation;
 
@@ -119,7 +121,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
-                                const Spacer(flex: 2),
+                                const Spacer(flex: 3),
                                 Padding(
                                   padding: EdgeInsets.only(
                                       left: maxWidth * 0.1,
@@ -127,7 +129,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                                   child: Image.asset(
                                       'assets/Images/anokha2024_logo.webp'),
                                 ),
-                                SizedBox(height: maxHeight * 0.08),
+                                SizedBox(height: maxHeight * 0.04),
                                 Text(
                                   "Sign In",
                                   style: GoogleFonts.habibi(
@@ -137,7 +139,29 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: maxHeight * 0.08),
+                                SizedBox(height: maxHeight * 0.04),
+                                CheckboxListTile(
+                                  title: const Text(
+                                      "Are you from Amrita Coimbatore Campus?",
+                                      style: TextStyle(color: Colors.white)),
+                                  value: _isFromCampus,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isFromCampus = value!;
+                                      if (_isFromCampus) {
+                                        _emailController.text +=
+                                        "@cb.students.amrita.edu";
+                                      } else {
+                                        _emailController.clear();
+                                      }
+                                    });
+                                  },
+                                  activeColor: Colors.white,
+                                  checkColor: const Color(0xFF264A62),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
                                 customTextField(
                                   false,
                                   'Enter your email',

@@ -263,6 +263,12 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
 
   Future<void> _handleEmailSubmit() async {
     String email = _emailController.text;
+
+    if (email.isEmpty) {
+      showToast("Email is necessary");
+      return;
+    }
+
     try {
       final response = await Dio().post(
         Constants.forgot,

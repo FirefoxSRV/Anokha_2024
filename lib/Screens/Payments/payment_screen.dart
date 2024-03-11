@@ -62,14 +62,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (request) async {
-            if (request.url.startsWith("upi://")) {
-              if (await canLaunchUrl(Uri.parse(request.url))) {
-                return NavigationDecision.navigate;
-              } else {
-                showToast("Payment Mode not supported. Try another method");
-                return NavigationDecision.prevent;
-              }
-            }
+            // if (request.url.startsWith("upi://")) {
+            //   if (await canLaunchUrl(Uri.parse(request.url))) {
+            //     return NavigationDecision.navigate;
+            //   } else {
+            //     showToast("Payment Mode not supported. Try another method");
+            //     return NavigationDecision.prevent;
+            //   }
+            // }
 
             return NavigationDecision.navigate;
           },

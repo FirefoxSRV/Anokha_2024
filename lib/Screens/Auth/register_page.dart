@@ -141,6 +141,31 @@ class _RegisterPageState extends State<RegisterPage>
                                     }
                                   },
                                 ),
+                                SizedBox(height: maxHeight * 0.014),
+                                CheckboxListTile(
+                                  title: const Text(
+                                      "Are you from Amrita Coimbatore Campus?",
+                                      style: TextStyle(color: Colors.white)),
+                                  value: _isFromCampus,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _isFromCampus = value!;
+                                      if (_isFromCampus) {
+                                        _collegeController.text =
+                                            "Amrita Vishwa Vidyapeetham";
+                                        _cityController.text = "Coimbatore";
+                                        _emailController.text +=
+                                            "@cb.students.amrita.edu";
+                                      } else {
+                                        _emailController.clear();
+                                        _cityController.clear();
+                                        _collegeController.clear();
+                                      }
+                                    });
+                                  },
+                                  activeColor: Colors.white,
+                                  checkColor: const Color(0xFF264A62),
+                                ),
                                 SizedBox(height: maxHeight * 0.028),
                                 customTextField(
                                   false,
@@ -250,25 +275,6 @@ class _RegisterPageState extends State<RegisterPage>
                                   },
                                 ),
                                 SizedBox(height: maxHeight * 0.014),
-                                CheckboxListTile(
-                                  title: const Text(
-                                      "Are you from Amrita Coimbatore Campus?",
-                                      style: TextStyle(color: Colors.white)),
-                                  value: _isFromCampus,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _isFromCampus = value!;
-                                      if (_isFromCampus) {
-                                        _collegeController.text =
-                                            "Amrita Vishwa Vidyapeetham";
-                                        _cityController.text = "Coimbatore";
-                                      }
-                                    });
-                                  },
-                                  activeColor: Colors.white,
-                                  checkColor: const Color(0xFF264A62),
-                                ),
-                                SizedBox(height: maxHeight * 0.014),
                                 customTextField(
                                   false,
                                   'Enter your college name',
@@ -314,7 +320,9 @@ class _RegisterPageState extends State<RegisterPage>
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    register();
+                                    if (formKey.currentState!.validate()) {
+                                      register();
+                                    }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor:
@@ -327,7 +335,7 @@ class _RegisterPageState extends State<RegisterPage>
                                         vertical: 20),
                                   ),
                                   child: const Text(
-                                    "REGISTER",
+                                    "Register",
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
