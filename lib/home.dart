@@ -4,6 +4,7 @@ import 'package:anokha/Screens/countdown.dart';
 import 'package:anokha/Utils/navigation_pane.dart';
 import 'package:anokha/utils/alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
@@ -60,8 +61,7 @@ class HomePageState extends State<HomePage> {
                       ),
                       color: const Color.fromRGBO(11, 38, 59, 1),
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                       },
                       child: Text(
                         "Ok",
