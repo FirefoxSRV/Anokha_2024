@@ -347,8 +347,7 @@ class CountdownPageState extends State<Countdown>
           ),
           const SizedBox(height: 10), // Add space between title and events
           if (events.isNotEmpty) ...[
-
-            for(int i = 0; i < events.length; i++) ...[
+            for (int i = 0; i < events.length; i++) ...[
               const SizedBox(
                 height: 10,
               ),
@@ -356,13 +355,11 @@ class CountdownPageState extends State<Countdown>
                 event: events[i],
                 onTap: () {
                   Navigator.of(context).push(PageRouteBuilder(
-                    pageBuilder:
-                        (context, animation, secondaryAnimation) =>
+                    pageBuilder: (context, animation, secondaryAnimation) =>
                         FadeTransition(
-                          opacity: animation,
-                          child:
-                          EventDetailPage(eventId: events[i]["eventId"]),
-                        ),
+                      opacity: animation,
+                      child: EventDetailPage(eventId: events[i]["eventId"]),
+                    ),
                   ));
                 },
               ),

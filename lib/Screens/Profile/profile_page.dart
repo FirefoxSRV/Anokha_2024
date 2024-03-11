@@ -67,40 +67,83 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 8, 44, 68),
       extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return LayoutBuilder(builder: (context, constraints) {
+                      double width = constraints.maxWidth;
+                      double height = constraints.maxHeight;
+                      return CustomAlertDialog(
+                        width: width,
+                        height: height,
+                        title: "Logout",
+                        content: "Do you want to Logout?",
+                        actions: [
+                          MaterialButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('No',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                          MaterialButton(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(color: Colors.white)),
+                            onPressed: () {
+                              _logOut();
+                              showToast("Logout successful");
+                            },
+                            child: const Text('Yes',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(11, 38, 59, 1))),
+                          ),
+                        ],
+                      );
+                    });
+                  });
+            },
+            icon: const Icon(
+              Icons.logout_rounded,
+              color: Colors.white,
+            ),
+          )
+        ],
+        backgroundColor: const Color.fromARGB(255, 8, 44, 68),
+        title: Text(
+          "Profile",
+          style: GoogleFonts.nunito(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: isLoading == true
           ? const LoadingComponent()
           : RefreshIndicator(
               onRefresh: _pullRefresh,
               child: SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  top: 128,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.height * 0.32,
-                      ),
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 8, 44, 68),
                       ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          ),
-                          Center(
-                            child: Text(
-                              "Profile",
-                              style: GoogleFonts.nunito(
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.025,
-                          ),
                           CircleAvatar(
                             radius: MediaQuery.of(context).size.height * 0.08,
                             backgroundColor: Colors.white,
@@ -110,7 +153,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(8),
                             child: Center(
                               child: Text(
                                 name.toString(),
@@ -122,9 +165,6 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 24,
-                          ),
                         ],
                       ),
                     ),
@@ -134,8 +174,9 @@ class _UserProfileState extends State<UserProfile> {
                       // ),
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                         color: Colors.white,
                       ),
                       child: SingleChildScrollView(

@@ -61,7 +61,8 @@ class HomePageState extends State<HomePage> {
                       ),
                       color: const Color.fromRGBO(11, 38, 59, 1),
                       onPressed: () {
-                        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                        SystemChannels.platform
+                            .invokeMethod('SystemNavigator.pop');
                       },
                       child: Text(
                         "Ok",
@@ -102,9 +103,11 @@ class HomePageState extends State<HomePage> {
           children: const [
             Countdown(),
             EventsWorkshopsPage(
+              isFeatured: true,
+            ),
+            EventsWorkshopsPage(
               isFeatured: false,
             ),
-            EventsWorkshopsPage(isFeatured: true),
             UserProfile(),
           ],
         ),

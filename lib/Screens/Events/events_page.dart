@@ -8,6 +8,7 @@ import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EventsWorkshopsPage extends StatefulWidget {
@@ -336,7 +337,9 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
             backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
             title: !_isSearching
                 ? Text(
-                    widget.isFeatured ? 'Featured' : 'Events & Workshops',
+                    widget.isFeatured
+                        ? 'Featured Events'
+                        : 'Events & Workshops',
                     style: const TextStyle(color: Colors.white),
                   )
                 : TextField(
@@ -384,11 +387,16 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
                                 ? "No featured events found"
                                 : "No events found",
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 30),
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
                           ),
                         )
                       : GridView.builder(
                           shrinkWrap: true,
+                          padding: const EdgeInsets.only(
+                            bottom: 68,
+                          ),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -400,15 +408,18 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
                           itemBuilder: (ctx, i) => EventCard(
                             event: _filteredEvents[i],
                             onTap: () {
-                              Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder:
-                                    (context, animation, secondaryAnimation) =>
-                                        FadeTransition(
-                                  opacity: animation,
-                                  child: EventDetailPage(
-                                      eventId: _filteredEvents[i]["eventId"]),
+                              Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  pageBuilder: (context, animation,
+                                          secondaryAnimation) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: EventDetailPage(
+                                      eventId: _filteredEvents[i]["eventId"],
+                                    ),
+                                  ),
                                 ),
-                              ));
+                              );
                             },
                           ),
                         ),
@@ -553,7 +564,9 @@ class EventCard extends StatelessWidget {
                               size: 12), // Smaller icon
                           const SizedBox(width: 4),
                           Text(
-                            event["eventDate"],
+                            DateFormat("d'th' MMMM'").format(
+                                DateFormat("yyyy-MM-DD")
+                                    .parse(event["eventDate"])),
                             style: const TextStyle(
                               fontSize: 12, // Smaller font size
                             ),
@@ -562,29 +575,32 @@ class EventCard extends StatelessWidget {
                       ),
 // Price
                       Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 8, 44, 68),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 5, right: 5),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.currency_rupee,
-                                    color: Colors.white,
-                                    size: 12), // Smaller icon
-                                const SizedBox(width: 4),
-                                Text(
-                                  '${(event["eventPrice"] * 1.18).ceil()}',
-                                  style: const TextStyle(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 8, 44, 68),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.currency_rupee,
+                                  color: Colors.white,
+                                  size: 12), // Smaller icon
+                              const SizedBox(width: 4),
+                              Text(
+                                '${(event["eventPrice"] * 1.18).ceil()} /-',
+                                style: GoogleFonts.quicksand(
+                                  textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
                                       color: Colors.white // Smaller font size
                                       ),
                                 ),
-                              ],
-                            ),
-                          )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -635,7 +651,9 @@ class FilterChipDemoState extends State<FilterChipDemo> {
       alignment: WrapAlignment.center,
       children: [
         FilterChip(
-          label: const Text('Workshop'),
+          label: const Text(
+            'Workshop',
+          ),
           selected: widget.isWorkshop,
           onSelected: (bool value) {
             setState(() {
@@ -784,13 +802,13 @@ class FilterChipDemoState extends State<FilterChipDemo> {
           },
         ),
         const SizedBox(
-          height: 24,
+          height: 48,
         ),
         const Divider(
           thickness: 1,
         ),
         const SizedBox(
-          height: 16,
+          height: 48,
         ),
         Wrap(
           spacing: 10,

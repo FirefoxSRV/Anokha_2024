@@ -150,8 +150,10 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                               setState(() {
                                 _isFromCampus = value!;
                                 if (_isFromCampus) {
-                                  _emailController.text +=
-                                      "@cb.students.amrita.edu";
+                                  if (!_emailController.text.contains("@")) {
+                                    _emailController.text +=
+                                        "@cb.students.amrita.edu";
+                                  }
                                 } else {
                                   _emailController.clear();
                                 }
@@ -175,6 +177,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                               if (value == null || value.isEmpty) {
                                 return "Please enter email ID";
                               }
+
 
                               const pattern =
                                   r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
@@ -355,6 +358,14 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
       setState(() {
         _isLoading = true;
       });
+
+      debugPrint({
+        "studentEmail": _emailController.text.toString(),
+        // Valid EMAIL. Max 255 chars.
+        "studentPassword": hashedPass.toString()
+        // Min 8 chars. Cannot include '-'(hiphen) and "'"(quotes) as part of the password.
+        // Send SHA256 Hashed Version of password.
+      }.toString());
 
       try {
         final response = await Dio().post(

@@ -764,6 +764,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: Center(
                       child: Text(
                         event['eventName'],
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.quicksand(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -784,7 +785,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     padding: const EdgeInsets.all(10),
                     child: Center(
                       child: Text(
-                        "₹ ${(event["eventPrice"] * 1.18).ceil()}",
+                        "₹ ${(event["eventPrice"] * 1.18).ceil()} /-",
                         style: GoogleFonts.quicksand(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -1055,11 +1056,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           _logOut();
         } else {
           // Some unknown error. Handle It
-          showToast("Something went wrong please wait");
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginReg()),
-              (route) => false);
+          showToast("Something went wrong. We're working on it.");
         }
       });
     } catch (err) {

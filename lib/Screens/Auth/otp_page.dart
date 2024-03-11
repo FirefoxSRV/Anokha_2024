@@ -165,12 +165,16 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                       centerTitle: true,
                       collapseMode: CollapseMode.parallax,
                       title: Padding(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.1),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24,
+                        ),
                         child: Text(
                           "OTP Verification",
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.quicksand(
-                              fontSize: 18, color: Colors.white),
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -188,12 +192,13 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                               height: 48,
                             ),
                             Text(
-                              "Submit OTP",
+                              "Check your email (the one you entered just now) for OTP from Anokha 2024. Please enter it here to complete your registration.",
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.quicksand(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                              style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.white,
+                              ),
                             ),
                             const SizedBox(
                               height: 24,
@@ -252,6 +257,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                                       // );
                                       if (value == "1") {
                                         showToast("OTP verified successfully");
+                                        showToast("Login to continue");
 
                                         Navigator.pop(context);
                                         Navigator.pushReplacement(context,
@@ -278,7 +284,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                                         horizontal: 50, vertical: 15),
                                   ),
                                   child: Text(
-                                    "Verify",
+                                    "Verify and Register",
                                     style: GoogleFonts.quicksand(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),

@@ -72,7 +72,10 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
             backgroundColor: const Color.fromRGBO(43, 30, 56, 1),
             forceMaterialTransparency: false,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -88,10 +91,9 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage>
                     "Forgot password",
                     style: GoogleFonts.habibi(
                       textStyle: const TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500
-                      ),
+                          fontSize: 32,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
                     ),
                     textAlign: TextAlign.center,
                   ),

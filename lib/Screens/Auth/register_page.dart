@@ -96,258 +96,267 @@ class _RegisterPageState extends State<RegisterPage>
                 ],
               ),
             ),
-            child: isLoading == true ? const LoadingComponent() : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: maxHeight * 0.02),
-                    Text(
-                      "Sign Up",
-                      style: GoogleFonts.habibi(
-                        textStyle: const TextStyle(
-                            fontSize: 32,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: maxHeight * 0.032),
-                    customTextField(
-                      false,
-                      'Enter your name',
-                      'Name',
-                      Icons.person,
-                      _nameController,
-                      TextInputType.name,
-                      (val) {
-                        //validator
-                        if (val!.isNotEmpty) {
-                          return null;
-                        } else {
-                          return "Name cannot be empty";
-                        }
-                      },
-                    ),
-                    SizedBox(height: maxHeight * 0.014),
-                    CheckboxListTile(
-                      title: const Text(
-                          "Are you from Amrita Coimbatore Campus?",
-                          style: TextStyle(color: Colors.white)),
-                      value: _isFromCampus,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isFromCampus = value!;
-                          if (_isFromCampus) {
-                            _collegeController.text =
-                                "Amrita Vishwa Vidyapeetham";
-                            _cityController.text = "Coimbatore";
-                            _emailController.text += "@cb.students.amrita.edu";
-                          } else {
-                            _emailController.clear();
-                            _cityController.clear();
-                            _collegeController.clear();
-                          }
-                        });
-                      },
-                      activeColor: Colors.white,
-                      checkColor: const Color(0xFF264A62),
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    customTextField(
-                      false,
-                      'Enter your email',
-                      'Email',
-                      Icons.email,
-                      _emailController,
-                      TextInputType.emailAddress,
-                      (val) {
-                        if (val == null || val.isEmpty) {
-                          return "Please enter a valid email";
-                        }
+            child: isLoading == true
+                ? const LoadingComponent()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: maxHeight * 0.02),
+                          Text(
+                            "Sign Up",
+                            style: GoogleFonts.habibi(
+                              textStyle: const TextStyle(
+                                  fontSize: 32,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: maxHeight * 0.032),
+                          customTextField(
+                            false,
+                            'Enter your name',
+                            'Name',
+                            Icons.person,
+                            _nameController,
+                            TextInputType.name,
+                            (val) {
+                              //validator
+                              if (val!.isNotEmpty) {
+                                return null;
+                              } else {
+                                return "Name cannot be empty";
+                              }
+                            },
+                          ),
+                          SizedBox(height: maxHeight * 0.014),
+                          CheckboxListTile(
+                            title: const Text(
+                                "Are you from Amrita Coimbatore Campus?",
+                                style: TextStyle(color: Colors.white)),
+                            value: _isFromCampus,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                _isFromCampus = value!;
+                                if (_isFromCampus) {
+                                  _collegeController.text =
+                                      "Amrita Vishwa Vidyapeetham";
+                                  _cityController.text = "Coimbatore";
 
-                        const pattern =
-                            r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-                            r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-                            r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-                            r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-                            r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-                            r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-                            r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-                        final regex = RegExp(pattern);
+                                  if (!_emailController.text.contains("@")) {
+                                    _emailController.text +=
+                                        "@cb.students.amrita.edu";
+                                  }
+                                } else {
+                                  _emailController.clear();
+                                  _cityController.clear();
+                                  _collegeController.clear();
+                                }
+                              });
+                            },
+                            activeColor: Colors.white,
+                            checkColor: const Color(0xFF264A62),
+                          ),
+                          SizedBox(height: maxHeight * 0.028),
+                          customTextField(
+                            false,
+                            'Enter your email',
+                            'Email',
+                            Icons.email,
+                            _emailController,
+                            TextInputType.emailAddress,
+                            (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Please enter a valid email";
+                              }
 
-                        if (_isFromCampus) {
-                          return val.endsWith("@cb.students.amrita.edu")
-                              ? (!regex.hasMatch(val)
+                              const pattern =
+                                  r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+                                  r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+                                  r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+                                  r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+                                  r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+                                  r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+                                  r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+                              final regex = RegExp(pattern);
+
+                              if (_isFromCampus) {
+                                return val.endsWith("@cb.students.amrita.edu")
+                                    ? (!regex.hasMatch(val)
+                                        ? 'Enter a valid email address'
+                                        : null)
+                                    : "Please enter college email ID";
+                              }
+
+                              return !regex.hasMatch(val)
                                   ? 'Enter a valid email address'
-                                  : null)
-                              : "Please enter college email ID";
-                        }
-
-                        return !regex.hasMatch(val)
-                            ? 'Enter a valid email address'
-                            : null;
-                      },
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    customTextField(
-                      !_passwordVisible,
-                      'Enter your password',
-                      'Password',
-                      Icons.lock,
-                      _passwordController,
-                      TextInputType.visiblePassword,
-                      (val) {
-                        if (val!.length < 8) {
-                          return "Password must be at least 8 characters";
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: !_confirmPasswordVisible,
-                      cursorColor: Colors.white,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        labelText: "Re-Enter Password",
-                        hintStyle: GoogleFonts.quicksand(
-                            color: Colors.white.withOpacity(0.5)),
-                        labelStyle: GoogleFonts.quicksand(color: Colors.white),
-                        hintText: "Confirm Password",
-                        filled: true,
-                        fillColor: Colors.white.withOpacity(0.1),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
-                        prefixIcon: const Icon(Icons.lock, color: Colors.white),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _confirmPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.white,
+                                  : null;
+                            },
                           ),
-                          onPressed: () {
-                            // Update the state i.e. toggle the state of passwordVisible variable
-                            setState(() {
-                              _confirmPasswordVisible =
-                                  !_confirmPasswordVisible;
-                            });
-                          },
-                        ),
-                      ),
-                      onChanged: (val) {
-                        setState(() {
-                          _isPasswordMatch = val == _passwordController.text;
-                        });
-                      },
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    customTextField(
-                      false,
-                      'Enter your phone number',
-                      'Phone',
-                      Icons.phone,
-                      _phoneController,
-                      TextInputType.phone,
-                      (val) {
-                        if (val == null || val.isEmpty) {
-                          return "Please enter your mobile Number";
-                        }
-
-                        if (val.length != 10) {
-                          return "Mobile Number should be 10 digits.";
-                        }
-
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    customTextField(
-                      false,
-                      'Enter your college name',
-                      'College',
-                      Icons.school,
-                      _collegeController,
-                      TextInputType.name,
-                      (val) {
-                        if (val!.isNotEmpty) {
-                          return null;
-                        } else {
-                          return "College Name cannot be empty";
-                        }
-                      },
-                      enabled: !_isFromCampus,
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    customTextField(
-                      false,
-                      'Enter your city',
-                      'City',
-                      Icons.location_city,
-                      _cityController,
-                      TextInputType.name,
-                      (val) {
-                        if (val!.isNotEmpty) {
-                          return null;
-                        } else {
-                          return "City cannot be empty";
-                        }
-                      },
-                      enabled: !_isFromCampus,
-                    ),
-                    SizedBox(height: maxHeight * 0.028),
-                    if (!_isPasswordMatch) ...[
-                      Text(
-                        "Passwords do not match",
-                        style: GoogleFonts.poppins(color: Colors.red),
-                      ),
-                    ],
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            register();
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Theme.of(context).primaryColor,
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                          SizedBox(height: maxHeight * 0.028),
+                          customTextField(
+                            !_passwordVisible,
+                            'Enter your password',
+                            'Password',
+                            Icons.lock,
+                            _passwordController,
+                            TextInputType.visiblePassword,
+                            (val) {
+                              if (val!.length < 8) {
+                                return "Password must be at least 8 characters";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20,
+                          SizedBox(height: maxHeight * 0.028),
+                          TextFormField(
+                            controller: _confirmPasswordController,
+                            obscureText: !_confirmPasswordVisible,
+                            cursorColor: Colors.white,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30))),
+                              labelText: "Re-Enter Password",
+                              hintStyle: GoogleFonts.quicksand(
+                                  color: Colors.white.withOpacity(0.5)),
+                              labelStyle:
+                                  GoogleFonts.quicksand(color: Colors.white),
+                              hintText: "Confirm Password",
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon:
+                                  const Icon(Icons.lock, color: Colors.white),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _confirmPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  // Update the state i.e. toggle the state of passwordVisible variable
+                                  setState(() {
+                                    _confirmPasswordVisible =
+                                        !_confirmPasswordVisible;
+                                  });
+                                },
+                              ),
+                            ),
+                            onChanged: (val) {
+                              setState(() {
+                                _isPasswordMatch =
+                                    val == _passwordController.text;
+                              });
+                            },
                           ),
-                        ),
-                        child: const Text(
-                          "Register",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF264A62)),
-                        ),
+                          SizedBox(height: maxHeight * 0.028),
+                          customTextField(
+                            false,
+                            'Enter your phone number',
+                            'Phone',
+                            Icons.phone,
+                            _phoneController,
+                            TextInputType.phone,
+                            (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Please enter your mobile Number";
+                              }
+
+                              if (val.length != 10) {
+                                return "Mobile Number should be 10 digits.";
+                              }
+
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: maxHeight * 0.028),
+                          customTextField(
+                            false,
+                            'Enter your college name',
+                            'College',
+                            Icons.school,
+                            _collegeController,
+                            TextInputType.name,
+                            (val) {
+                              if (val!.isNotEmpty) {
+                                return null;
+                              } else {
+                                return "College Name cannot be empty";
+                              }
+                            },
+                            enabled: !_isFromCampus,
+                          ),
+                          SizedBox(height: maxHeight * 0.028),
+                          customTextField(
+                            false,
+                            'Enter your city',
+                            'City',
+                            Icons.location_city,
+                            _cityController,
+                            TextInputType.name,
+                            (val) {
+                              if (val!.isNotEmpty) {
+                                return null;
+                              } else {
+                                return "City cannot be empty";
+                              }
+                            },
+                            enabled: !_isFromCampus,
+                          ),
+                          SizedBox(height: maxHeight * 0.028),
+                          if (!_isPasswordMatch) ...[
+                            Text(
+                              "Passwords do not match",
+                              style: GoogleFonts.poppins(color: Colors.red),
+                            ),
+                          ],
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  register();
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                ),
+                              ),
+                              child: const Text(
+                                "Register",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF264A62)),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
           ),
         ),
       );

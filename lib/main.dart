@@ -4,6 +4,7 @@ import 'package:anokha/Screens/Events/events_page.dart';
 import 'package:anokha/home.dart';
 import 'package:anokha/utils/helper/helper_function.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,6 +47,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Anokha 2024',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
+      ),
       routes: {
         '/': (context) =>
             _isSignedIn ? const HomePage() : const PrimaryScreen(),
