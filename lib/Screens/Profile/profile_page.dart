@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:anokha/Screens/Auth/primary_page.dart';
 import 'package:anokha/Screens/Payments/Payment_Utils/buy_passport.dart';
 import 'package:anokha/Screens/Profile/Transactions/view_transaction.dart';
@@ -5,6 +7,7 @@ import 'package:anokha/constants.dart';
 import 'package:anokha/utils/alert_dialog.dart';
 import 'package:anokha/utils/loading_component.dart';
 import 'package:anokha/utils/toast_message.dart';
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +63,11 @@ class _UserProfileState extends State<UserProfile> {
         });
       });
     });
+  }
+  
+  String genSHA256Hash(String message) {
+    // debugPrint(sha256.convert(utf8.encode(message)).toString());
+    return sha256.convert(utf8.encode(message)).toString();
   }
 
   @override
@@ -149,7 +157,7 @@ class _UserProfileState extends State<UserProfile> {
                             backgroundColor: Colors.white,
                             child: ClipOval(
                               child: Image.network(
-                                  "https://www.gravatar.com/avatar/$email.jpg?s=200&d=robohash"),
+                                  "https://www.gravatar.com/avatar/${genSHA256Hash(email)}.jpg?s=200&d=robohash"),
                             ),
                           ),
                           Padding(
