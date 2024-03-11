@@ -36,11 +36,25 @@ class CountdownPageState extends State<Countdown>
       qrText = "",
       needPassport = "";
   bool isLoading = true;
+  bool showRegisteredEventsButton = true;
 
   @override
   void initState() {
     super.initState();
     scrollController = ScrollController();
+
+    scrollController.addListener(() {
+      if (scrollController.offset < 1) {
+        setState(() {
+          showRegisteredEventsButton = true;
+        });
+      } else {
+        setState(() {
+          showRegisteredEventsButton = false;
+        });
+      }
+    });
+
     setState(() {
       Future.microtask(() async {
         try {
@@ -91,8 +105,6 @@ class CountdownPageState extends State<Countdown>
         upcomingEvents.add(event);
       }
     }
-
-    setState(() {});
   }
 
   Future<List<dynamic>> fetchRegisteredEvents() async {
@@ -169,6 +181,39 @@ class CountdownPageState extends State<Countdown>
           ),
         ),
         child: Scaffold(
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: (pastEvents.isNotEmpty ||
+                      todaysEvents.isNotEmpty ||
+                      upcomingEvents.isNotEmpty) &&
+                  (showRegisteredEventsButton)
+              ? AnimatedBuilder(
+                  animation: _scaleAnimation,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: _scaleAnimation.value,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          scrollController.animateTo(
+                            MediaQuery.of(context).size.height * 0.8,
+                            duration: const Duration(milliseconds: 1000),
+                            curve: Curves.decelerate,
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.arrow_downward_rounded,
+                          color: Color.fromRGBO(11, 38, 59, 1),
+                        ),
+                        label: Text(
+                          "Registered Events",
+                          style: GoogleFonts.quicksand(
+                              color: const Color.fromRGBO(11, 38, 59, 1)),
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : null,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
@@ -233,40 +278,52 @@ class CountdownPageState extends State<Countdown>
           body: SingleChildScrollView(
             controller: scrollController,
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Image.asset(
-                      'assets/Images/anokha2024_logo.webp',
-                      width: constraints.maxWidth * 0.8,
+                  Container(
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height * 0.8,
                     ),
-                  ),
-                  const Center(
-                    child: Chip(
-                      label: Text(
-                        "# DareToBeDifferent",
-                      ),
-                      visualDensity: VisualDensity.compact,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            'assets/Images/anokha2024_logo.webp',
+                            width: constraints.maxWidth * 0.8,
+                          ),
+                        ),
+                        const Center(
+                          child: Chip(
+                            label: Text(
+                              "# DareToBeDifferent",
+                            ),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Image.asset("assets/Images/footer_image_white.webp"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Amrita Vishwa Vidyapeetham's Coimbatore Campus hosts Anokha, a lively tech extravaganza! This dynamic 3-day event brings together students, professionals, and tech enthusiasts from across the nation for exciting competitions, workshops, and interactive sessions covering engineering, robotics, AI, and sustainable technologies. More than just a competition, Anokha is a celebration of collaboration and knowledge exchange. With diverse events catering to different interests and skill sets, it's a vibrant showcase of curiosity and creativity. Beyond tech, Anokha incorporates cultural elements, creating a festive and engaging atmosphere.",
+                          style: GoogleFonts.quicksand(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Image.asset("assets/Images/footer_image_white.webp"),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    "Amrita Vishwa Vidyapeetham's Coimbatore Campus hosts Anokha, a lively tech extravaganza! This dynamic 3-day event brings together students, professionals, and tech enthusiasts from across the nation for exciting competitions, workshops, and interactive sessions covering engineering, robotics, AI, and sustainable technologies. More than just a competition, Anokha is a celebration of collaboration and knowledge exchange. With diverse events catering to different interests and skill sets, it's a vibrant showcase of curiosity and creativity. Beyond tech, Anokha incorporates cultural elements, creating a festive and engaging atmosphere.",
-                    style: GoogleFonts.quicksand(
-                      textStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    textAlign: TextAlign.justify,
                   ),
                   if (isLoading == true) ...[
                     const SizedBox(
@@ -274,40 +331,6 @@ class CountdownPageState extends State<Countdown>
                     ),
                     const LoadingComponent(),
                   ] else ...[
-                    if (pastEvents.isNotEmpty ||
-                        todaysEvents.isNotEmpty ||
-                        upcomingEvents.isNotEmpty) ...[
-                      Center(
-                        child: AnimatedBuilder(
-                          animation: _scaleAnimation,
-                          builder: (context, child) {
-                            return Transform.scale(
-                              scale: _scaleAnimation.value,
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  scrollController.animateTo(
-                                    MediaQuery.of(context).size.height * 0.8,
-                                    duration:
-                                        const Duration(milliseconds: 1000),
-                                    curve: Curves.decelerate,
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_downward_rounded,
-                                  color: Color.fromRGBO(11, 38, 59, 1),
-                                ),
-                                label: Text(
-                                  "Registered Events",
-                                  style: GoogleFonts.quicksand(
-                                      color:
-                                          const Color.fromRGBO(11, 38, 59, 1)),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
                     if (pastEvents.isNotEmpty) ...[
                       eventTimeline("Past Events", pastEvents)
                     ],
