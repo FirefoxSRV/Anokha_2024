@@ -1,5 +1,5 @@
 class Constants {
-  static const String base = 'https://web.abhinavramakrishnan.tech';
+  static const String base = 'https://anokha.amrita.edu';
 
   static const String auth = '/api/auth';
 

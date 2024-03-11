@@ -26,6 +26,7 @@ class _BuyPassportWaitingScreenState extends State<BuyPassportWaitingScreen> {
   String content =
       "The Anokha passport serves as the exclusive entry ticket, granting access to the Anokha tech fest. All students, excluding those from Amrita Vishwa Vidyapeetham Coimbatore campus, must acquire a passport prior to event and workshop registration. Coimbatore campus students, however, need not purchase a passport but must register using their Amrita email-id. The passport, priced at ₹300 (including GST), ensures entry to the tech fest, while separate registration fees apply to events and workshops. Instead of physical copies, a QR code provided upon passport purchase must be presented for entry throughout the three days of the tech fest.";
   String title = "Anokha Passport";
+  String imageUrl = "https://i.imgur.com/iQy8GLM.jpg";
 
   void _getPassportContentData() async {
     setState(() {
@@ -54,6 +55,7 @@ class _BuyPassportWaitingScreenState extends State<BuyPassportWaitingScreen> {
           amount = (response.data["amount"] * 1.18).ceil() ?? amount;
           title = response.data["title"] ?? title;
           content = response.data["description"] ?? content;
+          imageUrl = response.data["imageUrl"] ?? imageUrl;
         });
       } else if (response.statusCode == 401) {
         _logOut();
@@ -158,8 +160,7 @@ class _BuyPassportWaitingScreenState extends State<BuyPassportWaitingScreen> {
                     Hero(
                       tag: 'buyPassport',
                       child: Image.network(
-                        //todo : passport image,
-                        "https://i.imgur.com/iQy8GLM.jpg",
+                        imageUrl,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height * 0.7,
