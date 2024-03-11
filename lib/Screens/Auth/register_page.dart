@@ -131,6 +131,7 @@ class _RegisterPageState extends State<RegisterPage>
                                   'Name',
                                   Icons.person,
                                   _nameController,
+                                  TextInputType.name,
                                   (val) {
                                     //validator
                                     if (val!.isNotEmpty) {
@@ -147,10 +148,22 @@ class _RegisterPageState extends State<RegisterPage>
                                   'Email',
                                   Icons.email,
                                   _emailController,
+                                  TextInputType.emailAddress,
                                   (val) {
+                                    if (val == null || val.isEmpty) {
+                                      return "Please enter a valid email";
+                                    }
+
+                                    if (_isFromCampus) {
+                                      return val.endsWith(
+                                              "@cb.students.amrita.edu")
+                                          ? null
+                                          : "Please enter college email ID";
+                                    }
+
                                     return RegExp(
                                                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                            .hasMatch(val!)
+                                            .hasMatch(val)
                                         ? null
                                         : "Please enter a valid email";
                                   },
@@ -162,6 +175,7 @@ class _RegisterPageState extends State<RegisterPage>
                                   'Password',
                                   Icons.lock,
                                   _passwordController,
+                                  TextInputType.visiblePassword,
                                   (val) {
                                     if (val!.length < 8) {
                                       return "Password must be at least 8 characters";
@@ -226,6 +240,7 @@ class _RegisterPageState extends State<RegisterPage>
                                   'Phone',
                                   Icons.phone,
                                   _phoneController,
+                                  TextInputType.phone,
                                   (val) {
                                     if (val!.length != 10) {
                                       return null;
@@ -236,7 +251,8 @@ class _RegisterPageState extends State<RegisterPage>
                                 ),
                                 SizedBox(height: maxHeight * 0.014),
                                 CheckboxListTile(
-                                  title: const Text("Are you from this campus?",
+                                  title: const Text(
+                                      "Are you from Amrita Coimbatore Campus?",
                                       style: TextStyle(color: Colors.white)),
                                   value: _isFromCampus,
                                   onChanged: (bool? value) {
@@ -254,30 +270,38 @@ class _RegisterPageState extends State<RegisterPage>
                                 ),
                                 SizedBox(height: maxHeight * 0.014),
                                 customTextField(
-                                    false,
-                                    'Enter your college name',
-                                    'College',
-                                    Icons.school,
-                                    _collegeController, (val) {
-                                  if (val!.isNotEmpty) {
-                                    return null;
-                                  } else {
-                                    return "College Name cannot be empty";
-                                  }
-                                }, enabled: !_isFromCampus),
+                                  false,
+                                  'Enter your college name',
+                                  'College',
+                                  Icons.school,
+                                  _collegeController,
+                                  TextInputType.name,
+                                  (val) {
+                                    if (val!.isNotEmpty) {
+                                      return null;
+                                    } else {
+                                      return "College Name cannot be empty";
+                                    }
+                                  },
+                                  enabled: !_isFromCampus,
+                                ),
                                 SizedBox(height: maxHeight * 0.028),
                                 customTextField(
-                                    false,
-                                    'Enter your city',
-                                    'City',
-                                    Icons.location_city,
-                                    _cityController, (val) {
-                                  if (val!.isNotEmpty) {
-                                    return null;
-                                  } else {
-                                    return "City cannot be empty";
-                                  }
-                                }, enabled: !_isFromCampus),
+                                  false,
+                                  'Enter your city',
+                                  'City',
+                                  Icons.location_city,
+                                  _cityController,
+                                  TextInputType.name,
+                                  (val) {
+                                    if (val!.isNotEmpty) {
+                                      return null;
+                                    } else {
+                                      return "City cannot be empty";
+                                    }
+                                  },
+                                  enabled: !_isFromCampus,
+                                ),
                                 SizedBox(height: maxHeight * 0.028),
                                 if (!_isPasswordMatch)
                                   Text(
@@ -333,11 +357,13 @@ class _RegisterPageState extends State<RegisterPage>
       String labelText,
       IconData icon,
       TextEditingController controller,
+      TextInputType inputType,
       String? Function(String?)? validator,
       {bool enabled = true}) {
     return TextFormField(
         obscureText: obscureText,
         controller: controller,
+        keyboardType: inputType,
         enabled: enabled,
         decoration: InputDecoration(
           focusedBorder: const OutlineInputBorder(

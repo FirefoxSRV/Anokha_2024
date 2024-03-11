@@ -347,40 +347,32 @@ class CountdownPageState extends State<Countdown>
           ),
           const SizedBox(height: 10), // Add space between title and events
           if (events.isNotEmpty) ...[
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: events.length,
-                itemBuilder: (ctx, i) => Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    EventCard(
-                      event: events[i],
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  FadeTransition(
-                            opacity: animation,
-                            child:
-                                EventDetailPage(eventId: events[i]["eventId"]),
-                          ),
-                        ));
-                      },
-                    ),
-                  ],
-                ),
+
+            for(int i = 0; i < events.length; i++) ...[
+              const SizedBox(
+                height: 10,
               ),
-            ),
+              EventCard(
+                event: events[i],
+                onTap: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder:
+                        (context, animation, secondaryAnimation) =>
+                        FadeTransition(
+                          opacity: animation,
+                          child:
+                          EventDetailPage(eventId: events[i]["eventId"]),
+                        ),
+                  ));
+                },
+              ),
+            ],
           ] else ...[
             Text(
               "No events found",
               style: GoogleFonts.quicksand(color: Colors.white),
-            )
-          ]
+            ),
+          ],
         ],
       ),
     );

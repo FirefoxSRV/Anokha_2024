@@ -1,6 +1,7 @@
 import 'package:anokha/Screens/Auth/primary_page.dart';
 import 'package:anokha/Screens/Payments/payment_screen.dart';
 import 'package:anokha/constants.dart';
+import 'package:anokha/utils/loading_component.dart';
 import 'package:anokha/utils/toast_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -84,7 +85,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 221, 235, 248),
-      body: SafeArea(
+      body: isLoading == true ? const LoadingComponent() : SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
@@ -432,6 +433,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                             }
                             return null;
                           },
+                          keyboardType: TextInputType.emailAddress,
                           controller: _controller1[i],
                           cursorColor: Colors.black,
                           style: const TextStyle(
@@ -482,6 +484,7 @@ class _RegisterToGroupEventPageState extends State<RegisterToGroupEventPage> {
                           },
                           controller: _controller2[i],
                           cursorColor: Colors.black,
+                          keyboardType: TextInputType.text,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 5, 5, 5)),
                           decoration: InputDecoration(

@@ -145,6 +145,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                                   _emailFocusNode,
                                   Icons.person,
                                   _emailController,
+                                  TextInputType.emailAddress,
                                   (val) {
                                     if (val!.length < 6) {
                                       return "Password must be at least 6 characters";
@@ -161,6 +162,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                                   _passwordFocusNode,
                                   Icons.lock,
                                   _passwordController,
+                                  TextInputType.visiblePassword,
                                   (val) {
                                     if (val!.length < 6) {
                                       return "Password must be at least 6 characters";
@@ -258,6 +260,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
     FocusNode focusNode,
     IconData icon,
     TextEditingController? textEditingController,
+    TextInputType inputType,
     String? Function(String?)? validator, {
     VoidCallback? onTogglePasswordVisibility,
   } // Added parameter
@@ -266,6 +269,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
       focusNode: focusNode,
       obscureText: obscureText,
       controller: textEditingController,
+      keyboardType: inputType,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: GoogleFonts.quicksand(color: Colors.white),
