@@ -60,6 +60,11 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
     _scaleAnimation = Tween<double>(begin: 0.75, end: 1).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.linear));
     _animationController.forward();
+
+    SharedPreferences.getInstance().then((sp) {
+      _emailController.text = sp.getString("EMAIL") ?? "";
+    });
+
     super.initState();
   }
 

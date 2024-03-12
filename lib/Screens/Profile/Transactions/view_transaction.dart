@@ -305,7 +305,7 @@ class _ViewTransactionsState extends State<ViewTransactions> {
     SharedPreferences.getInstance().then((sp) {
       sp.setBool("LOGGEDINKEY", false);
       sp.setString("NAME", "");
-      sp.setString("EMAIL", "");
+      // sp.setString("EMAIL", "");
       sp.setString("PHONE", "");
       sp.setString("COLLEGE", "");
       sp.setString("CITY", "");

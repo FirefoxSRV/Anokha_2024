@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -456,6 +457,10 @@ class _RegisterPageState extends State<RegisterPage>
         // saving the shared preference state
 
         await HelperFunctions.saveOTPTokenSF(response.data["SECRET_TOKEN"]);
+
+        await SharedPreferences.getInstance().then((sp) {
+          sp.setString("EMAIL", _emailController.text.trim());
+        });
 
         // should go to otp screen
         showToast("OTP sent successfully");

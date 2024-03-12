@@ -1073,7 +1073,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
     SharedPreferences.getInstance().then((sp) {
       sp.setBool("LOGGEDINKEY", false);
       sp.setString("NAME", "");
-      sp.setString("EMAIL", "");
+      // sp.setString("EMAIL", "");
       sp.setString("PHONE", "");
       sp.setString("COLLEGE", "");
       sp.setString("CITY", "");
