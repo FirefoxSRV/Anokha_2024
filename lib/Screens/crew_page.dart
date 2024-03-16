@@ -129,7 +129,7 @@ class Crew extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.8),
+                (MediaQuery.of(context).size.height / 2.5),
           ),
           itemCount: crew['teamMembers'].length,
           itemBuilder: (ctx, i) => CrewCard(
