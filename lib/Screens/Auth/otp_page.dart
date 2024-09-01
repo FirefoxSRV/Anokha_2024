@@ -165,7 +165,7 @@ class _RegisterOtpScreenState extends State<RegisterOtpScreen>
                       centerTitle: true,
                       collapseMode: CollapseMode.parallax,
                       title: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 24,
                         ),
                         child: Text(
