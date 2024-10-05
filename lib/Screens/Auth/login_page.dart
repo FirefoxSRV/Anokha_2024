@@ -142,31 +142,31 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: maxHeight * 0.04),
-                          CheckboxListTile(
-                            title: const Text(
-                              "From Amrita Coimbatore?",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            value: _isFromCampus,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                _isFromCampus = value!;
-                                if (_isFromCampus) {
-                                  if (!_emailController.text.contains("@")) {
-                                    _emailController.text +=
-                                        "@cb.students.amrita.edu";
-                                  }
-                                } else {
-                                  _emailController.clear();
-                                }
-                              });
-                            },
-                            activeColor: Colors.white,
-                            checkColor: const Color(0xFF264A62),
-                          ),
+                          // CheckboxListTile(
+                          //   title: const Text(
+                          //     "From Amrita Coimbatore?",
+                          //     style: TextStyle(
+                          //       color: Colors.white,
+                          //       fontSize: 16,
+                          //     ),
+                          //   ),
+                          //   value: _isFromCampus,
+                          //   onChanged: (bool? value) {
+                          //     setState(() {
+                          //       _isFromCampus = value!;
+                          //       if (_isFromCampus) {
+                          //         if (!_emailController.text.contains("@")) {
+                          //           _emailController.text +=
+                          //               "@cb.students.amrita.edu";
+                          //         }
+                          //       } else {
+                          //         _emailController.clear();
+                          //       }
+                          //     });
+                          //   },
+                          //   activeColor: Colors.white,
+                          //   checkColor: const Color(0xFF264A62),
+                          // ),
                           const SizedBox(
                             height: 16,
                           ),
