@@ -383,7 +383,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                 status! < 1000, // This line is extremely important
           ),
           data: {
-            "studentEmail": _emailController.text.toString(),
+            "studentEmail": _emailController.text.trim(),
             // Valid EMAIL. Max 255 chars.
             "studentPassword": hashedPass.toString()
             // Min 8 chars. Cannot include '-'(hiphen) and "'"(quotes) as part of the password.
