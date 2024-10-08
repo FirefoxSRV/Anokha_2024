@@ -441,7 +441,7 @@ class _RegisterPageState extends State<RegisterPage>
               _nameController.text.trim(), // Max 255 chars. Min 1 char.
           "studentEmail":
               _emailController.text.trim(), // Valid Email. Max 255 chars.
-          "studentPhone": _phoneController.text.toString(), // 10-digit exactly.
+          "studentPhone": _phoneController.text.trim(), // 10-digit exactly.
           "studentPassword": hashedPass,
           "studentCollegeName": _collegeController.text.trim(),
           "studentCollegeCity": _cityController.text.trim(),
