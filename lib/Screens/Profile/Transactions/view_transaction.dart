@@ -97,8 +97,10 @@ class _ViewTransactionsState extends State<ViewTransactions> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  DateFormat('EEE, MMM d, ' 'yy').format(DateTime.parse(
-                      _transactionData[index]["timeOfTransaction"])),
+                  DateFormat('EEE, MMM d, ' 'yy').format(
+                    DateTime.parse(_transactionData[index]["timeOfTransaction"])
+                        .toLocal(),
+                  ),
                   style: GoogleFonts.poppins(
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     color: Colors.grey,
