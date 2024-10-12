@@ -30,6 +30,7 @@ Amrita Vishwa Vidyapeetham's Coimbatore Campus hosts Anokha, a lively tech extra
 
 ### Mobile App
 
+
 [View in Play Store](https://play.google.com/store/apps/details?id=com.vaisakhkrishnank.anokha_home)
 
 - Dharma Pravardhana V (https://dpravardhana.github.io/#)
