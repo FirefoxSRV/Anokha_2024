@@ -210,7 +210,7 @@ class _LoginRegState extends State<LoginReg> with TickerProviderStateMixin {
                             TextInputType.visiblePassword,
                             (val) {
                               if (val!.length < 8) {
-                                return "Password must be at least 8 characters";
+                                return "Password must be at least  8 characters";
                               } else {
                                 return null;
                               }
