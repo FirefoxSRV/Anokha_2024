@@ -109,7 +109,7 @@ class _ViewTransactionsState extends State<ViewTransactions> {
                 ),
                 Text(
                   DateFormat('h:MM a').format(DateTime.parse(
-                      _transactionData[index]["timeOfTransaction"])),
+                      _transactionData[index]["timeOfTransaction"]).toLocal()),
                   style: GoogleFonts.poppins(
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     color: Colors.grey,

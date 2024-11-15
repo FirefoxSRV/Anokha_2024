@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:anokha/Screens/Auth/primary_page.dart';
 import 'package:anokha/Screens/Events/specific_event.dart';
 import 'package:anokha/constants.dart';
@@ -52,6 +51,28 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
     super.dispose();
   }
 
+  List<Map<String, dynamic>> randomizeEventData(List<Map<String, dynamic>> allEventData) {
+    // Ensure the event with eventId 141 is at the first position
+    for (int i = 0; i < allEventData.length; i++) {
+      if (allEventData[i]["eventId"] == 141) {
+        Map<String, dynamic> temp = allEventData[0];
+        allEventData[0] = allEventData[i];
+        allEventData[i] = temp;
+        break;
+      }
+    }
+
+    // Randomize the rest of the event data
+    for (int i = 1; i < allEventData.length; i++) {
+      int randomIndex = Random().nextInt(allEventData.length - 1) % allEventData.length + 1;
+      Map<String, dynamic> temp = allEventData[i];
+      allEventData[i] = allEventData[randomIndex];
+      allEventData[randomIndex] = temp;
+    }
+
+    return allEventData;
+  }
+
   void _getAllEvents() async {
     setState(() {
       _isLoading = true;
@@ -73,12 +94,12 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
               headers: {"Authorization": "Bearer ${sp.getString("TOKEN")}"}));
 
       if (response.statusCode == 200) {
+        List<Map<String, dynamic>> allEventData = [], featuredEventData = [];
+
+        allEventData = List<Map<String, dynamic>>.from(
+            response.data["EVENTS"] as List<dynamic>);
+        allEventData = randomizeEventData(allEventData);
         if (widget.isFeatured == true) {
-          List<Map<String, dynamic>> allEventData = [], featuredEventData = [];
-
-          allEventData = List<Map<String, dynamic>>.from(
-              response.data["EVENTS"] as List<dynamic>);
-
           for (int i = 0; i < allEventData.length; i++) {
             bool flag = false;
 
@@ -102,8 +123,10 @@ class EventsWorkshopsPageState extends State<EventsWorkshopsPage> {
           setState(() {
             _filteredEvents = List<Map<String, dynamic>>.from(
                 response.data["EVENTS"] as List<dynamic>);
-            eventData = List<Map<String, dynamic>>.from(
-                response.data["EVENTS"] as List<dynamic>);
+            _filteredEvents=randomizeEventData(_filteredEvents);
+            eventData = (allEventData);
+            print("checkpoint 2");
+            print(_filteredEvents);
           });
         }
       } else if (response.statusCode == 401) {
